@@ -101,8 +101,8 @@ export default function Settings({ onBack }: SettingsPageProps) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-cyan-50 to-teal-100">
       {/* Fixed Header */}
-      <header className="fixed top-0 left-0 right-0 bg-white shadow-sm border-b border-gray-200 z-20" style={{ maxWidth: '448px', margin: '0 auto' }}>
-        <div className="px-4 py-4 flex items-center justify-between">
+      <header className="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-20" style={{ maxWidth: '448px', margin: '0 auto' }}>
+        <div className="px-4 py-3 flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <Button
               variant="ghost"
@@ -132,7 +132,7 @@ export default function Settings({ onBack }: SettingsPageProps) {
       </header>
 
       {/* Scrollable Main Content */}
-      <div className="max-w-md mx-auto px-4 py-6 space-y-6" style={{ paddingTop: '110px' }}>
+      <div className="max-w-md mx-auto px-4 py-6 space-y-6" style={{ paddingTop: '98px' }}>
         {/* Profile Card */}
         <Card>
           <CardHeader>

@@ -47,8 +47,8 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-cyan-50 to-teal-100">
       {/* Fixed Header */}
-      <header className="fixed top-0 left-0 right-0 bg-white shadow-sm border-b border-gray-200 z-20" style={{ maxWidth: '448px', margin: '0 auto' }}>
-        <div className="px-4 py-4 flex items-center justify-between">
+      <header className="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-20" style={{ maxWidth: '448px', margin: '0 auto' }}>
+        <div className="px-4 py-3 flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 bg-gradient-to-br from-teal-500 to-blue-500 rounded-xl flex items-center justify-center">
               <PolynesianLogo className="w-5 h-5 text-white" size={20} />
@@ -84,7 +84,7 @@ export default function Home() {
         <>
           {/* Workout in Progress Banner - Fixed */}
           {workoutProgress && (
-            <div className="fixed top-[90px] left-0 right-0 bg-white border-b border-gray-200 z-15" style={{ maxWidth: '448px', margin: '0 auto' }}>
+            <div className="fixed top-[78px] left-0 right-0 bg-white border-b border-gray-200 z-15" style={{ maxWidth: '448px', margin: '0 auto' }}>
               <div className="px-4 py-3">
                 <WorkoutInProgress 
                   progress={workoutProgress}
@@ -99,7 +99,7 @@ export default function Home() {
             <div 
               className="max-w-md mx-auto overflow-y-auto home-content" 
               style={{ 
-                paddingTop: '90px', 
+                paddingTop: '78px', 
                 paddingBottom: '100px',
                 height: '100vh',
                 scrollbarWidth: 'none',
