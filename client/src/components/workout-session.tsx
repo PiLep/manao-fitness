@@ -443,7 +443,7 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
               </button>
               <button 
                 onClick={() => timer.skip()}
-                className="flex-1 bg-gradient-to-r from-pink-500 to-orange-500 text-white rounded-lg py-3 font-semibold hover:from-pink-600 hover:to-orange-600 transition-colors"
+                className="flex-1 bg-gradient-to-r from-teal-500 to-cyan-600 text-white rounded-lg py-3 font-semibold hover:from-teal-600 hover:to-cyan-700 transition-colors"
               >
                 Passer
               </button>
