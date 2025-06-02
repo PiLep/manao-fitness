@@ -54,7 +54,9 @@ export function WorkoutInProgress({ progress, onResumeWorkout }: WorkoutInProgre
   const progressPercentage = Math.round((progress.exercisesCompleted / totalExercises) * 100);
   
   // Calculer le temps écoulé
-  const startTime = new Date(progress.startTime);
+  const startTime = typeof progress.startTime === 'number' 
+    ? new Date(progress.startTime) 
+    : new Date(progress.startTime);
   const timeElapsed = Math.floor((Date.now() - startTime.getTime()) / 1000);
   const minutes = Math.floor(timeElapsed / 60);
   const seconds = timeElapsed % 60;
