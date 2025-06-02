@@ -85,10 +85,10 @@ export function WorkoutInProgress({ progress, onResumeWorkout }: WorkoutInProgre
           </p>
         </div>
 
-        <div className="flex items-center gap-3 text-xs text-orange-600 dark:text-orange-400">
+        <div className="flex items-center justify-between text-xs text-orange-600 dark:text-orange-400">
           <div className="flex items-center gap-1">
             <Clock className="h-3 w-3" />
-            {minutes}:{seconds.toString().padStart(2, '0')}
+            <span>{minutes}:{seconds.toString().padStart(2, '0')}</span>
           </div>
           <div>
             {progress.exercisesCompleted}/{totalExercises} exercices
