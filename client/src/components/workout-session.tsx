@@ -272,7 +272,7 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
   const nextExercise = getNextExerciseInfo();
 
   return (
-    <div className="max-w-md mx-auto pb-20">
+    <div className="max-w-md mx-auto pb-24">
       {/* Session Header */}
       <div className="bg-gradient-to-r from-primary to-orange-400 text-white px-4 py-4">
         <div className="flex items-center justify-between mb-3">
