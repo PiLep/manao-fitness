@@ -340,18 +340,23 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
         )}
 
 
-        <div className="text-center mb-6">
-          <h3 className="text-2xl font-bold text-gray-900 mb-2">{currentExercise.name}</h3>
-          <p className="text-lg text-primary font-semibold">{currentExercise.reps}</p>
-        </div>
+        {/* Exercise Details - Hidden during rest periods */}
+        {sessionState !== 'rest' && sessionState !== 'round-rest' && (
+          <>
+            <div className="text-center mb-6">
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">{currentExercise.name}</h3>
+              <p className="text-lg text-primary font-semibold">{currentExercise.reps}</p>
+            </div>
 
-        {/* Exercise Instructions */}
-        <div className="bg-gray-50 rounded-xl p-4 mb-6">
-          <h4 className="font-semibold text-gray-900 mb-2">Instructions</h4>
-          <p className="text-sm text-gray-600 leading-relaxed">
-            {currentExercise.instructions}
-          </p>
-        </div>
+            {/* Exercise Instructions */}
+            <div className="bg-gray-50 rounded-xl p-4 mb-6">
+              <h4 className="font-semibold text-gray-900 mb-2">Instructions</h4>
+              <p className="text-sm text-gray-600 leading-relaxed">
+                {currentExercise.instructions}
+              </p>
+            </div>
+          </>
+        )}
 
         {/* Next Exercise Preview */}
         <div className="border border-gray-200 rounded-xl p-4">
