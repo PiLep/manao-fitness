@@ -29,8 +29,8 @@ export function TimerDisplay({
   return (
     <div className="text-center">
       {/* Circular Timer */}
-      <div className="relative w-32 h-32 mx-auto mb-4">
-        <svg className="w-32 h-32 transform -rotate-90" viewBox="0 0 100 100">
+      <div className="relative w-24 h-24 mx-auto mb-3">
+        <svg className="w-24 h-24 transform -rotate-90" viewBox="0 0 100 100">
           <circle 
             cx="50" 
             cy="50" 
@@ -54,7 +54,7 @@ export function TimerDisplay({
         </svg>
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center">
-            <div className="text-3xl font-bold text-gray-900">
+            <div className="text-2xl font-bold text-gray-900">
               {formatTime(timeRemaining)}
             </div>
             <div className="text-xs text-gray-500">{label}</div>
@@ -63,18 +63,18 @@ export function TimerDisplay({
       </div>
 
       {/* Timer Controls */}
-      <div className="flex justify-center space-x-4">
+      <div className="flex justify-center space-x-3">
         <button 
           onClick={onPause}
-          className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors"
+          className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors"
         >
-          {isPaused ? <Play className="w-5 h-5" /> : <Pause className="w-5 h-5" />}
+          {isPaused ? <Play className="w-4 h-4" /> : <Pause className="w-4 h-4" />}
         </button>
         <button 
           onClick={onSkip}
-          className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary hover:bg-primary/20 transition-colors"
+          className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center text-primary hover:bg-primary/20 transition-colors"
         >
-          <SkipForward className="w-5 h-5" />
+          <SkipForward className="w-4 h-4" />
         </button>
       </div>
     </div>
