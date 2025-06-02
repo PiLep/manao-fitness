@@ -31,6 +31,7 @@ export function WorkoutInProgress({ progress, onResumeWorkout }: WorkoutInProgre
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/workout-progress'] });
+      queryClient.refetchQueries({ queryKey: ['/api/workout-progress'] });
       toast({
         title: "Entraînement supprimé",
         description: "Votre progression a été effacée",

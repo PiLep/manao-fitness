@@ -18,7 +18,7 @@ export default function Home() {
   const [workoutStats, setWorkoutStats] = useState<WorkoutStats | null>(null);
 
   // Check for existing workout progress
-  const { data: workoutProgress } = useQuery({
+  const { data: workoutProgress, refetch: refetchProgress } = useQuery({
     queryKey: ['/api/workout-progress'],
   });
 

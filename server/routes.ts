@@ -98,9 +98,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post('/api/workout-progress', isAuthenticated, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
+      const { startTime, ...otherData } = req.body;
+      
+      // Convert startTime to number if it's a string
+      let convertedStartTime = startTime;
+      if (typeof startTime === 'string') {
+        convertedStartTime = new Date(startTime).getTime();
+      }
+      
       const progress = await storage.saveWorkoutProgress({
         userId,
-        ...req.body
+        ...otherData,
+        startTime: convertedStartTime
       });
       res.json(progress);
     } catch (error) {
