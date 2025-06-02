@@ -272,9 +272,9 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
   const nextExercise = getNextExerciseInfo();
 
   return (
-    <div className="max-w-md mx-auto min-h-screen">
-      {/* Session Header */}
-      <div className="bg-gradient-to-r from-primary to-orange-400 text-white px-4 py-4">
+    <div className="max-w-md mx-auto h-screen flex flex-col">
+      {/* Fixed Session Header */}
+      <div className="bg-gradient-to-r from-primary to-orange-400 text-white px-4 py-4 flex-shrink-0">
         <div className="flex items-center justify-between mb-3">
           <button 
             onClick={onBack}
@@ -313,78 +313,75 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
         </div>
       </div>
 
-      {/* Main Content with bottom padding for fixed bar */}
-      <div className="pb-20">
-        {/* Timer Section - Only for timed exercises and rest periods */}
-        {(sessionState === 'rest' || sessionState === 'round-rest' || 
-          (sessionState === 'exercise' && currentExercise.duration > 0)) && (
-          <div className="bg-white border-b border-gray-200 px-4 py-6">
-            <TimerDisplay
-              timeRemaining={timer.timeRemaining}
-              progress={timer.progress}
-              label={getTimerLabel()}
-              onPause={timer.pause}
-              onSkip={timer.skip}
-              isPaused={timer.isPaused}
-            />
-          </div>
-        )}
+      {/* Fixed Timer Section */}
+      {(sessionState === 'rest' || sessionState === 'round-rest' || 
+        (sessionState === 'exercise' && currentExercise.duration > 0)) && (
+        <div className="bg-white border-b border-gray-200 px-4 py-6 flex-shrink-0">
+          <TimerDisplay
+            timeRemaining={timer.timeRemaining}
+            progress={timer.progress}
+            label={getTimerLabel()}
+            onPause={timer.pause}
+            onSkip={timer.skip}
+            isPaused={timer.isPaused}
+          />
+        </div>
+      )}
 
-        {/* Rep-based Exercise Display */}
-        {(sessionState === 'ready' || sessionState === 'exercise') && currentExercise.duration === 0 && (
-          <div className="bg-white border-b border-gray-200 px-4 py-6">
-            <div className="text-center">
-              <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-3xl font-bold text-primary">{currentExercise.reps.split(' ')[0]}</span>
-              </div>
-              <p className="text-lg font-semibold text-gray-700 mb-2">Effectuez les répétitions</p>
-              <p className="text-sm text-gray-500">Prenez votre temps pour bien exécuter chaque mouvement</p>
-              
-              {sessionState === 'exercise' && (
-                <button 
-                  onClick={() => handleTimerComplete()}
-                  className="mt-4 w-full bg-green-600 text-white rounded-xl py-3 font-semibold hover:bg-green-700 transition-colors shadow-md border border-green-700"
-                >
-                  ✓ Exercice terminé
-                </button>
-              )}
+      {/* Fixed Rep Display */}
+      {(sessionState === 'ready' || sessionState === 'exercise') && currentExercise.duration === 0 && (
+        <div className="bg-white border-b border-gray-200 px-4 py-6 flex-shrink-0">
+          <div className="text-center">
+            <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span className="text-3xl font-bold text-primary">{currentExercise.reps.split(' ')[0]}</span>
             </div>
+            <p className="text-lg font-semibold text-gray-700 mb-2">Effectuez les répétitions</p>
+            <p className="text-sm text-gray-500">Prenez votre temps pour bien exécuter chaque mouvement</p>
+            
+            {sessionState === 'exercise' && (
+              <button 
+                onClick={() => handleTimerComplete()}
+                className="mt-4 w-full bg-green-600 text-white rounded-xl py-3 font-semibold hover:bg-green-700 transition-colors shadow-md border border-green-700"
+              >
+                ✓ Exercice terminé
+              </button>
+            )}
           </div>
-        )}
+        </div>
+      )}
 
-        {/* Current Exercise */}
-        <div className="bg-white px-4 py-6">
-          <div className="text-center mb-6">
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">{currentExercise.name}</h3>
-            <p className="text-lg text-primary font-semibold">{currentExercise.reps}</p>
-          </div>
+      {/* Scrollable Exercise Content */}
+      <div className="flex-1 overflow-y-auto bg-white px-4 py-6">
+        <div className="text-center mb-6">
+          <h3 className="text-2xl font-bold text-gray-900 mb-2">{currentExercise.name}</h3>
+          <p className="text-lg text-primary font-semibold">{currentExercise.reps}</p>
+        </div>
 
-          {/* Exercise Instructions */}
-          <div className="bg-gray-50 rounded-xl p-4 mb-6">
-            <h4 className="font-semibold text-gray-900 mb-2">Instructions</h4>
-            <p className="text-sm text-gray-600 leading-relaxed">
-              {currentExercise.instructions}
-            </p>
-          </div>
+        {/* Exercise Instructions */}
+        <div className="bg-gray-50 rounded-xl p-4 mb-6">
+          <h4 className="font-semibold text-gray-900 mb-2">Instructions</h4>
+          <p className="text-sm text-gray-600 leading-relaxed">
+            {currentExercise.instructions}
+          </p>
+        </div>
 
-          {/* Next Exercise Preview */}
-          <div className="border border-gray-200 rounded-xl p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-xs text-gray-500 mb-1">Suivant</p>
-                <p className="font-semibold text-gray-900">{nextExercise.name}</p>
-              </div>
-              <div className="text-right">
-                <p className="text-xs text-gray-500 mb-1">Durée</p>
-                <p className="font-semibold text-gray-700">{nextExercise.duration}</p>
-              </div>
+        {/* Next Exercise Preview */}
+        <div className="border border-gray-200 rounded-xl p-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-xs text-gray-500 mb-1">Suivant</p>
+              <p className="font-semibold text-gray-900">{nextExercise.name}</p>
+            </div>
+            <div className="text-right">
+              <p className="text-xs text-gray-500 mb-1">Durée</p>
+              <p className="font-semibold text-gray-700">{nextExercise.duration}</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* Fixed Action Bar - Always visible */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-3 z-10" style={{ maxWidth: '448px', margin: '0 auto' }}>
+      <div className="bg-white border-t border-gray-200 px-4 py-3 flex-shrink-0">
         <div className="flex gap-3">
           {sessionState === 'ready' && currentExercise.duration > 0 && (
             <>
