@@ -272,7 +272,7 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
   const nextExercise = getNextExerciseInfo();
 
   return (
-    <div className="max-w-md mx-auto pb-24">
+    <div className="max-w-md mx-auto min-h-screen">
       {/* Session Header */}
       <div className="bg-gradient-to-r from-primary to-orange-400 text-white px-4 py-4">
         <div className="flex items-center justify-between mb-3">
@@ -351,7 +351,7 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
       )}
 
       {/* Current Exercise */}
-      <div className="bg-white px-4 py-6">
+      <div className="bg-white px-4 py-6 pb-24">
         <div className="text-center mb-6">
           <h3 className="text-2xl font-bold text-gray-900 mb-2">{currentExercise.name}</h3>
           <p className="text-lg text-primary font-semibold">{currentExercise.reps}</p>
@@ -381,7 +381,7 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
       </div>
 
       {/* Fixed Action Bar */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-3 max-w-md mx-auto">
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-3 z-10" style={{ maxWidth: '448px', margin: '0 auto' }}>
         <div className="flex gap-3">
           {sessionState === 'ready' && currentExercise.duration > 0 && (
             <>
