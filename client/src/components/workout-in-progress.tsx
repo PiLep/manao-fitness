@@ -30,8 +30,9 @@ export function WorkoutInProgress({ progress, onResumeWorkout }: WorkoutInProgre
       await apiRequest('DELETE', '/api/workout-progress');
     },
     onSuccess: () => {
+      // Force immediate cache update
+      queryClient.setQueryData(['/api/workout-progress'], null);
       queryClient.invalidateQueries({ queryKey: ['/api/workout-progress'] });
-      queryClient.refetchQueries({ queryKey: ['/api/workout-progress'] });
       toast({
         title: "Entraînement supprimé",
         description: "Votre progression a été effacée",
