@@ -81,14 +81,7 @@ export default function Home() {
       {/* Scrollable Main Content */}
       {appState === 'selection' && (
         <>
-          {/* Fixed Stats Section */}
-          <div className="fixed top-[90px] left-0 right-0 bg-gray-50 border-b border-gray-100 z-10" style={{ maxWidth: '448px', margin: '0 auto' }}>
-            <div className="px-4 py-4">
-              <WorkoutStats />
-            </div>
-          </div>
-
-          <div className="max-w-md mx-auto" style={{ paddingTop: '170px' }}>
+          <div className="max-w-md mx-auto" style={{ paddingTop: '90px', paddingBottom: '100px' }}>
             {/* Show workout in progress if exists */}
             {workoutProgress && (
               <WorkoutInProgress 
@@ -101,6 +94,13 @@ export default function Home() {
               onSelectWorkout={handleSelectWorkout}
               hasWorkoutInProgress={!!workoutProgress}
             />
+          </div>
+
+          {/* Fixed Stats Section at Bottom */}
+          <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-10" style={{ maxWidth: '448px', margin: '0 auto' }}>
+            <div className="px-4 py-4">
+              <WorkoutStats />
+            </div>
           </div>
         </>
       )}
