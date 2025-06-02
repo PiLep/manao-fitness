@@ -120,3 +120,10 @@
 .home-content::-webkit-scrollbar {
   display: none;
 }
+
+/* Polynesian wave pattern background */
+.wave-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='30' viewBox='0 0 60 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 15c15-5 15-5 30 0s15 5 30 0v15H0V15z' fill='%23059669' fill-opacity='0.03'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 60px 30px;
+}
