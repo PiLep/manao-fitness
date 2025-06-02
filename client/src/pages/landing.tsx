@@ -3,7 +3,7 @@ import { Activity, Timer, Trophy, Users } from "lucide-react";
 
 export default function Landing() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-orange-50">
+    <div className="min-h-screen bg-gradient-to-br from-cyan-50 to-teal-100">
       {/* Header */}
       <header className="bg-white/80 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -32,13 +32,13 @@ export default function Landing() {
         <div className="text-center">
           <h2 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
             Votre coach fitness
-            <span className="bg-gradient-to-r from-orange-500 to-blue-600 bg-clip-text text-transparent block">
-              personnel
+            <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent block">
+              polynésien
             </span>
           </h2>
           <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto">
-            Découvrez nos séances d'entraînement guidées avec timers automatiques. 
-            Full Body, Core & Gainage, et HIIT - tout ce dont vous avez besoin pour rester en forme.
+            Découvrez l'esprit Mana à travers nos séances d'entraînement inspirées des îles. 
+            Full Body, Core & Gainage, et HIIT - une approche holistique du bien-être.
           </p>
           <Button 
             onClick={() => window.location.href = '/api/login'}
