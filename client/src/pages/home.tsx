@@ -4,13 +4,14 @@ import { WorkoutSession, type WorkoutStats as WorkoutStatsType } from '@/compone
 import { WorkoutComplete } from '@/components/workout-complete';
 import { WorkoutInProgress } from '@/components/workout-in-progress';
 import Settings from '@/pages/settings';
+import Onboarding from '@/components/onboarding';
 import { useAuth } from '@/hooks/useAuth';
 import { useQuery } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { Activity, LogOut, User, Settings as SettingsIcon } from 'lucide-react';
 
 
-type AppState = 'selection' | 'session' | 'complete' | 'settings';
+type AppState = 'selection' | 'session' | 'complete' | 'settings' | 'onboarding';
 
 export default function Home() {
   const { user } = useAuth();
@@ -21,6 +22,11 @@ export default function Home() {
   // Check for existing workout progress
   const { data: workoutProgress, refetch: refetchProgress } = useQuery({
     queryKey: ['/api/workout-progress'],
+  });
+
+  // Check for user preferences to determine if onboarding is needed
+  const { data: userPreferences, isLoading: preferencesLoading } = useQuery({
+    queryKey: ['/api/user-preferences'],
   });
 
   const handleSelectWorkout = (workoutId: string) => {
@@ -43,6 +49,15 @@ export default function Home() {
     setSelectedWorkoutId('');
     setWorkoutStats(null);
   };
+
+  const handleOnboardingComplete = () => {
+    setAppState('selection');
+  };
+
+  // Show onboarding for new users (no preferences set)
+  if (!preferencesLoading && !userPreferences) {
+    return <Onboarding onComplete={handleOnboardingComplete} />;
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-white to-teal-100">
