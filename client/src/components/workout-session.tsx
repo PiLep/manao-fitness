@@ -231,7 +231,7 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
       )}
 
       {/* Rep-based Exercise Display */}
-      {sessionState === 'exercise' && currentExercise.duration === 0 && (
+      {(sessionState === 'ready' || sessionState === 'exercise') && currentExercise.duration === 0 && (
         <div className="bg-white border-b border-gray-200 px-4 py-6">
           <div className="text-center">
             <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -239,6 +239,15 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
             </div>
             <p className="text-lg font-semibold text-gray-700 mb-2">Effectuez les répétitions</p>
             <p className="text-sm text-gray-500">Prenez votre temps pour bien exécuter chaque mouvement</p>
+            
+            {sessionState === 'exercise' && (
+              <button 
+                onClick={() => handleTimerComplete()}
+                className="mt-4 w-full bg-success text-white rounded-xl py-3 font-semibold hover:bg-success/90 transition-colors"
+              >
+                Exercice terminé
+              </button>
+            )}
           </div>
         </div>
       )}
