@@ -2,6 +2,47 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Optimisations PWA pour mobile */
+@layer base {
+  html {
+    /* Évite le zoom lors du focus sur les inputs */
+    font-size: 16px;
+    /* Scroll fluide sur iOS */
+    -webkit-overflow-scrolling: touch;
+  }
+
+  body {
+    /* Évite le rebond sur iOS */
+    overscroll-behavior-y: none;
+    /* Améliore le touch */
+    touch-action: manipulation;
+    /* Font optimisée pour mobile */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Améliore les zones tactiles */
+  button, [role="button"], input, select, textarea {
+    /* Zone tactile minimum recommandée */
+    min-height: 44px;
+    /* Améliore le feedback tactile */
+    touch-action: manipulation;
+  }
+
+  /* Cache la barre d'adresse sur mobile */
+  @media (display-mode: standalone) {
+    html, body {
+      height: 100vh;
+      overflow: hidden;
+    }
+    
+    #root {
+      height: 100vh;
+      overflow-y: auto;
+    }
+  }
+}
+
 :root {
   --background: 0 0% 100%;
   --foreground: 20 14.3% 4.1%;
