@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { WorkoutSelection } from '@/components/workout-selection';
-import { WorkoutSession, type WorkoutStats } from '@/components/workout-session';
+import { WorkoutSelection, WorkoutStats } from '@/components/workout-selection';
+import { WorkoutSession, type WorkoutStats as WorkoutStatsType } from '@/components/workout-session';
 import { WorkoutComplete } from '@/components/workout-complete';
 import { WorkoutInProgress } from '@/components/workout-in-progress';
 import Settings from '@/pages/settings';
@@ -15,7 +15,7 @@ export default function Home() {
   const { user } = useAuth();
   const [appState, setAppState] = useState<AppState>('selection');
   const [selectedWorkoutId, setSelectedWorkoutId] = useState<string>('');
-  const [workoutStats, setWorkoutStats] = useState<WorkoutStats | null>(null);
+  const [workoutStats, setWorkoutStats] = useState<WorkoutStatsType | null>(null);
 
   // Check for existing workout progress
   const { data: workoutProgress, refetch: refetchProgress } = useQuery({
@@ -32,7 +32,7 @@ export default function Home() {
     setAppState('session');
   };
 
-  const handleWorkoutComplete = (stats: WorkoutStats) => {
+  const handleWorkoutComplete = (stats: WorkoutStatsType) => {
     setWorkoutStats(stats);
     setAppState('complete');
   };
@@ -45,9 +45,9 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-md mx-auto px-4 py-4 flex items-center justify-between">
+      {/* Fixed Header */}
+      <header className="fixed top-0 left-0 right-0 bg-white shadow-sm border-b border-gray-200 z-20" style={{ maxWidth: '448px', margin: '0 auto' }}>
+        <div className="px-4 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-blue-600 rounded-xl flex items-center justify-center">
               <Activity className="w-5 h-5 text-white" />
@@ -78,22 +78,31 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Main Content */}
+      {/* Scrollable Main Content */}
       {appState === 'selection' && (
-        <div className="space-y-6">
-          {/* Show workout in progress if exists */}
-          {workoutProgress && (
-            <WorkoutInProgress 
-              progress={workoutProgress}
-              onResumeWorkout={handleResumeWorkout}
+        <>
+          {/* Fixed Stats Section */}
+          <div className="fixed top-[90px] left-0 right-0 bg-gray-50 border-b border-gray-100 z-10" style={{ maxWidth: '448px', margin: '0 auto' }}>
+            <div className="px-4 py-4">
+              <WorkoutStats />
+            </div>
+          </div>
+
+          <div className="max-w-md mx-auto" style={{ paddingTop: '170px' }}>
+            {/* Show workout in progress if exists */}
+            {workoutProgress && (
+              <WorkoutInProgress 
+                progress={workoutProgress}
+                onResumeWorkout={handleResumeWorkout}
+              />
+            )}
+            
+            <WorkoutSelection 
+              onSelectWorkout={handleSelectWorkout}
+              hasWorkoutInProgress={!!workoutProgress}
             />
-          )}
-          
-          <WorkoutSelection 
-            onSelectWorkout={handleSelectWorkout}
-            hasWorkoutInProgress={!!workoutProgress}
-          />
-        </div>
+          </div>
+        </>
       )}
 
       {appState === 'session' && selectedWorkoutId && (

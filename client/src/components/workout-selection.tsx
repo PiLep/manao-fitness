@@ -108,13 +108,11 @@ export function WorkoutSelection({ onSelectWorkout, hasWorkoutInProgress }: Work
         })}
       </div>
 
-      {/* Quick Stats */}
-      <WorkoutStats />
     </div>
   );
 }
 
-function WorkoutStats() {
+export function WorkoutStats() {
   const { data: stats, isLoading } = useQuery({
     queryKey: ['/api/workout-stats'],
   });
