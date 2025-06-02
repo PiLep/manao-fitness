@@ -314,7 +314,7 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
       </div>
 
       {/* Scrollable Exercise Content */}
-      <div className="absolute inset-0 bg-white px-4 py-6 overflow-y-auto" style={{ top: '160px', bottom: '80px' }}>
+      <div className="absolute inset-0 bg-white px-4 py-6 overflow-y-auto scrollbar-hide" style={{ top: '160px', bottom: '80px' }}>
         {/* Timer Section - Only for timed exercises and rest periods */}
         {(sessionState === 'rest' || sessionState === 'round-rest' || 
           (sessionState === 'exercise' && currentExercise.duration > 0)) && (
@@ -380,7 +380,7 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
       </div>
 
       {/* Fixed Action Bar - Always visible */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-3 z-20" style={{ maxWidth: '448px', margin: '0 auto' }}>
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 pt-4 pb-3 z-20" style={{ maxWidth: '448px', margin: '0 auto' }}>
         <div className="flex gap-3">
           {sessionState === 'ready' && currentExercise.duration > 0 && (
             <>

@@ -29,6 +29,16 @@
     touch-action: manipulation;
   }
 
+  /* Masquer la scrollbar */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
   /* Cache la barre d'adresse sur mobile */
   @media (display-mode: standalone) {
     html, body {
