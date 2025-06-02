@@ -77,6 +77,23 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
   const isWorkoutActive = sessionState !== 'ready';
   useWakeLock(isWorkoutActive);
 
+  // Load existing progress on component mount
+  useEffect(() => {
+    if (existingProgress && existingProgress.workoutId === workoutId && !resumingWorkout) {
+      setResumingWorkout(true);
+      setCurrentRound(existingProgress.currentRound);
+      setCurrentExerciseIndex(existingProgress.currentExerciseIndex);
+      setExercisesCompleted(existingProgress.exercisesCompleted);
+      setSessionState(existingProgress.sessionState as SessionState);
+      setStartTime(new Date(existingProgress.startTime).getTime());
+      
+      // Resume timer if needed
+      if (existingProgress.sessionState !== 'ready' && existingProgress.timeRemaining > 0) {
+        timer.start(existingProgress.timeRemaining);
+      }
+    }
+  }, [existingProgress, workoutId, resumingWorkout]);
+
   // Mutations pour sauvegarder/supprimer le progrès
   const saveProgressMutation = useMutation({
     mutationFn: async (progressData: any) => {
@@ -96,15 +113,39 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
   const handleTimerComplete = () => {
     switch (sessionState) {
       case 'exercise':
-        setExercisesCompleted(prev => prev + 1);
+        const newExercisesCompleted = exercisesCompleted + 1;
+        setExercisesCompleted(newExercisesCompleted);
+        
         if (isLastExercise && isLastRound) {
           handleWorkoutComplete();
         } else if (isLastExercise) {
           setSessionState('round-rest');
           timer.start(workout.restBetweenRounds);
+          // Save progress
+          saveProgressMutation.mutate({
+            workoutId,
+            currentRound,
+            currentExerciseIndex,
+            exercisesCompleted: newExercisesCompleted,
+            sessionState: 'round-rest',
+            startTime: new Date(startTime).toISOString(),
+            timeRemaining: workout.restBetweenRounds,
+            isPaused: false,
+          });
         } else {
           setSessionState('rest');
           timer.start(workout.restBetweenExercises);
+          // Save progress
+          saveProgressMutation.mutate({
+            workoutId,
+            currentRound,
+            currentExerciseIndex,
+            exercisesCompleted: newExercisesCompleted,
+            sessionState: 'rest',
+            startTime: new Date(startTime).toISOString(),
+            timeRemaining: workout.restBetweenExercises,
+            isPaused: false,
+          });
         }
         break;
       case 'rest':
@@ -122,6 +163,18 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
   const handleStartExercise = () => {
     setSessionState('exercise');
     timer.start(getTimerDuration());
+    
+    // Save progress when starting exercise
+    saveProgressMutation.mutate({
+      workoutId,
+      currentRound,
+      currentExerciseIndex,
+      exercisesCompleted,
+      sessionState: 'exercise',
+      startTime: new Date(startTime).toISOString(),
+      timeRemaining: getTimerDuration(),
+      isPaused: false,
+    });
   };
 
   // Auto-start timer for timed exercises when state changes
