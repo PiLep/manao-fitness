@@ -1,3 +1,5 @@
+import { CheckCircle } from 'lucide-react';
+
 interface WorkoutCompleteProps {
   stats: {
     totalTime: number;
@@ -20,7 +22,7 @@ export function WorkoutComplete({ stats, onNewWorkout }: WorkoutCompleteProps) {
       <div className="text-center px-4 py-12">
         {/* Success Animation */}
         <div className="w-24 h-24 bg-gradient-to-br from-success to-emerald-400 rounded-full flex items-center justify-center mx-auto mb-6">
-          <i className="fas fa-check text-white text-3xl" />
+          <CheckCircle className="w-12 h-12 text-white" />
         </div>
         
         <h2 className="text-3xl font-bold text-gray-900 mb-2">Bravo !</h2>

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { WorkoutSelection } from '@/components/workout-selection';
 import { WorkoutSession, type WorkoutStats } from '@/components/workout-session';
 import { WorkoutComplete } from '@/components/workout-complete';
+import { Dumbbell, Settings } from 'lucide-react';
 
 type AppState = 'selection' | 'session' | 'complete';
 

@@ -1,4 +1,5 @@
 import { workouts } from '@/lib/workouts';
+import { Clock, RotateCcw, Play } from 'lucide-react';
 
 interface WorkoutSelectionProps {
   onSelectWorkout: (workoutId: string) => void;
@@ -59,17 +60,17 @@ export function WorkoutSelection({ onSelectWorkout }: WorkoutSelectionProps) {
                   <p className="text-sm text-gray-600 mb-3">{workout.description}</p>
                   <div className="flex items-center space-x-4 text-xs text-gray-500">
                     <span className="flex items-center space-x-1">
-                      <i className="fas fa-clock" />
+                      <Clock className="w-3 h-3" />
                       <span>{workout.duration}</span>
                     </span>
                     <span className="flex items-center space-x-1">
-                      <i className="fas fa-redo" />
+                      <RotateCcw className="w-3 h-3" />
                       <span>{workout.rounds} tours</span>
                     </span>
                   </div>
                 </div>
                 <div className={`rounded-xl p-2 ${colors.icon}`}>
-                  <i className="fas fa-play" />
+                  <Play className="w-4 h-4" />
                 </div>
               </div>
               <div className="flex flex-wrap gap-2">

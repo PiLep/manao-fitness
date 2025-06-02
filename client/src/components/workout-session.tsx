@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { workouts, type Workout, type Exercise } from '@/lib/workouts';
 import { useTimer } from '@/hooks/use-timer';
 import { TimerDisplay } from './timer-display';
+import { ArrowLeft } from 'lucide-react';
 
 interface WorkoutSessionProps {
   workoutId: string;
@@ -150,7 +151,7 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
             onClick={onBack}
             className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center text-white hover:bg-white/30 transition-colors"
           >
-            <i className="fas fa-arrow-left" />
+            <ArrowLeft className="w-5 h-5" />
           </button>
           <div className="text-center">
             <h2 className="text-lg font-bold">{workout.title}</h2>

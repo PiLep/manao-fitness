@@ -1,4 +1,4 @@
-import { Circle } from 'lucide-react';
+import { Pause, Play, SkipForward } from 'lucide-react';
 
 interface TimerDisplayProps {
   timeRemaining: number;
@@ -68,13 +68,13 @@ export function TimerDisplay({
           onClick={onPause}
           className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors"
         >
-          <i className={`fas ${isPaused ? 'fa-play' : 'fa-pause'}`} />
+          {isPaused ? <Play className="w-5 h-5" /> : <Pause className="w-5 h-5" />}
         </button>
         <button 
           onClick={onSkip}
           className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary hover:bg-primary/20 transition-colors"
         >
-          <i className="fas fa-forward" />
+          <SkipForward className="w-5 h-5" />
         </button>
       </div>
     </div>
