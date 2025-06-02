@@ -8,7 +8,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useQuery } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { Activity, LogOut, User, Settings as SettingsIcon } from 'lucide-react';
-import { PolynesianLogo } from '@/components/ui/polynesian-logo';
+
 
 type AppState = 'selection' | 'session' | 'complete' | 'settings';
 
@@ -50,9 +50,6 @@ export default function Home() {
       <header className="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-20" style={{ maxWidth: '448px', margin: '0 auto' }}>
         <div className="px-4 py-3 flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-teal-500 to-blue-500 rounded-xl flex items-center justify-center">
-              <PolynesianLogo className="w-5 h-5 text-white" size={20} />
-            </div>
             <div>
               <h1 className="text-xl font-bold text-gray-900">Manao</h1>
             </div>

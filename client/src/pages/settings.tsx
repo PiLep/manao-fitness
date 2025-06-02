@@ -9,7 +9,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
 import { ArrowLeft, User, Volume2, Target, LogOut } from 'lucide-react';
-import { PolynesianLogo } from '@/components/ui/polynesian-logo';
+
 
 type DifficultyLevel = 'beginner' | 'intermediate' | 'advanced';
 
@@ -112,9 +112,6 @@ export default function Settings({ onBack }: SettingsPageProps) {
             >
               <ArrowLeft className="w-5 h-5" />
             </Button>
-            <div className="w-10 h-10 bg-gradient-to-br from-teal-500 to-blue-500 rounded-xl flex items-center justify-center">
-              <PolynesianLogo className="w-5 h-5 text-white" size={20} />
-            </div>
             <div>
               <h1 className="text-xl font-bold text-gray-900">Paramètres</h1>
               <p className="text-xs text-gray-500">Configuration Manao</p>

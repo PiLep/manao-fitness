@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Activity, Timer, Trophy, Users } from "lucide-react";
-import { PolynesianLogo } from "@/components/ui/polynesian-logo";
+
 
 export default function Landing() {
   return (
@@ -10,9 +10,6 @@ export default function Landing() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-teal-500 to-blue-500 rounded-xl flex items-center justify-center">
-                <PolynesianLogo className="w-6 h-6 text-white" size={24} />
-              </div>
               <div>
                 <h1 className="text-xl font-bold text-gray-900">Manao</h1>
                 <p className="text-sm text-gray-600">Fitness Polynésien</p>
@@ -109,9 +106,6 @@ export default function Landing() {
       <footer className="bg-white border-t border-gray-200 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="flex items-center justify-center space-x-3 mb-4">
-            <div className="w-8 h-8 bg-gradient-to-br from-teal-500 to-blue-500 rounded-lg flex items-center justify-center">
-              <PolynesianLogo className="w-5 h-5 text-white" size={20} />
-            </div>
             <span className="text-lg font-semibold text-gray-900">Manao</span>
           </div>
           <p className="text-gray-600">
