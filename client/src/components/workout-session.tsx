@@ -314,7 +314,16 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
       </div>
 
       {/* Scrollable Exercise Content */}
-      <div className="absolute inset-0 bg-white px-4 py-6 overflow-y-auto scrollbar-hide" style={{ top: '160px', bottom: '80px' }}>
+      <div 
+        className="absolute inset-0 bg-white px-4 py-6 overflow-y-auto" 
+        style={{ 
+          top: '160px', 
+          bottom: '90px',
+          msOverflowStyle: 'none',
+          scrollbarWidth: 'none',
+          WebkitScrollbar: { display: 'none' }
+        }}
+      >
         {/* Timer Section - Only for timed exercises and rest periods */}
         {(sessionState === 'rest' || sessionState === 'round-rest' || 
           (sessionState === 'exercise' && currentExercise.duration > 0)) && (
