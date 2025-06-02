@@ -339,20 +339,7 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
           </div>
         )}
 
-        {/* Rep Display */}
-        {(sessionState === 'ready' || sessionState === 'exercise') && currentExercise.duration === 0 && (
-          <div className="border-b border-gray-200 pb-6 mb-6 pt-4">
-            <div className="text-center">
-              <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-3xl font-bold text-primary">{currentExercise.reps.split(' ')[0]}</span>
-              </div>
-              <p className="text-lg font-semibold text-gray-700 mb-2">Effectuez les répétitions</p>
-              <p className="text-sm text-gray-500">Prenez votre temps pour bien exécuter chaque mouvement</p>
-              
 
-            </div>
-          </div>
-        )}
         <div className="text-center mb-6">
           <h3 className="text-2xl font-bold text-gray-900 mb-2">{currentExercise.name}</h3>
           <p className="text-lg text-primary font-semibold">{currentExercise.reps}</p>
