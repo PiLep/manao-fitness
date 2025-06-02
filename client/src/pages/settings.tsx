@@ -226,7 +226,7 @@ export default function Settings({ onBack }: SettingsPageProps) {
                 onCheckedChange={(checked) => 
                   setSettings(prev => ({ ...prev, soundEnabled: checked }))
                 }
-                style={{ height: '24px', width: '42px', minHeight: '24px', maxHeight: '24px' }}
+                style={{ height: '24px', width: '48px', minHeight: '24px', maxHeight: '24px' }}
               />
             </div>
           </CardContent>
