@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { WorkoutSelection, WorkoutStats } from '@/components/workout-selection';
+import { WorkoutSelection, WorkoutStats } from '@/components/workout-selection-fixed';
 import { WorkoutSession, type WorkoutStats as WorkoutStatsType } from '@/components/workout-session';
 import { WorkoutComplete } from '@/components/workout-complete';
 import { WorkoutInProgress } from '@/components/workout-in-progress';
