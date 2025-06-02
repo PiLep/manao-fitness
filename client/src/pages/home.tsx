@@ -2,8 +2,10 @@ import { useState } from 'react';
 import { WorkoutSelection } from '@/components/workout-selection';
 import { WorkoutSession, type WorkoutStats } from '@/components/workout-session';
 import { WorkoutComplete } from '@/components/workout-complete';
+import { WorkoutInProgress } from '@/components/workout-in-progress';
 import Settings from '@/pages/settings';
 import { useAuth } from '@/hooks/useAuth';
+import { useQuery } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { Activity, LogOut, User, Settings as SettingsIcon } from 'lucide-react';
 
@@ -15,7 +17,17 @@ export default function Home() {
   const [selectedWorkoutId, setSelectedWorkoutId] = useState<string>('');
   const [workoutStats, setWorkoutStats] = useState<WorkoutStats | null>(null);
 
+  // Check for existing workout progress
+  const { data: workoutProgress } = useQuery({
+    queryKey: ['/api/workout-progress'],
+  });
+
   const handleSelectWorkout = (workoutId: string) => {
+    setSelectedWorkoutId(workoutId);
+    setAppState('session');
+  };
+
+  const handleResumeWorkout = (workoutId: string) => {
     setSelectedWorkoutId(workoutId);
     setAppState('session');
   };

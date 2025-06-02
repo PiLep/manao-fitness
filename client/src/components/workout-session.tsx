@@ -77,6 +77,22 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
   const isWorkoutActive = sessionState !== 'ready';
   useWakeLock(isWorkoutActive);
 
+  // Mutations pour sauvegarder/supprimer le progrès
+  const saveProgressMutation = useMutation({
+    mutationFn: async (progressData: any) => {
+      await apiRequest('POST', '/api/workout-progress', progressData);
+    },
+  });
+
+  const deleteProgressMutation = useMutation({
+    mutationFn: async () => {
+      await apiRequest('DELETE', '/api/workout-progress');
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/workout-progress'] });
+    },
+  });
+
   const handleTimerComplete = () => {
     switch (sessionState) {
       case 'exercise':
@@ -147,6 +163,9 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
     } catch (error) {
       console.error("Failed to save workout session:", error);
     }
+
+    // Clear progress when workout is completed
+    deleteProgressMutation.mutate();
 
     onComplete(stats);
   };
