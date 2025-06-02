@@ -171,7 +171,7 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
       currentExerciseIndex,
       exercisesCompleted,
       sessionState: 'exercise',
-      startTime: new Date(startTime),
+      startTime: startTime,
       timeRemaining: getTimerDuration(),
       isPaused: false,
     });

@@ -1,4 +1,4 @@
-import { pgTable, text, serial, integer, boolean, timestamp, varchar, jsonb, index } from "drizzle-orm/pg-core";
+import { pgTable, text, serial, integer, boolean, timestamp, varchar, jsonb, index, bigint } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 import { relations } from "drizzle-orm";
@@ -53,7 +53,7 @@ export const workoutProgress = pgTable("workout_progress", {
   currentExerciseIndex: integer("current_exercise_index").default(0),
   exercisesCompleted: integer("exercises_completed").default(0),
   sessionState: varchar("session_state").default("ready"),
-  startTime: timestamp("start_time").defaultNow(),
+  startTime: bigint("start_time", { mode: "number" }).notNull(),
   timeRemaining: integer("time_remaining").default(0),
   isPaused: boolean("is_paused").default(false),
   createdAt: timestamp("created_at").defaultNow(),
@@ -102,6 +102,8 @@ export const insertWorkoutProgressSchema = createInsertSchema(workoutProgress).o
   id: true,
   createdAt: true,
   updatedAt: true,
+}).extend({
+  startTime: z.number(),
 });
 
 // Types for Replit Auth
