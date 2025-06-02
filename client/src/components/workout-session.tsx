@@ -189,8 +189,9 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
         </div>
       </div>
 
-      {/* Timer Section */}
-      {(sessionState === 'exercise' || sessionState === 'rest' || sessionState === 'round-rest') && (
+      {/* Timer Section - Only for timed exercises and rest periods */}
+      {(sessionState === 'rest' || sessionState === 'round-rest' || 
+        (sessionState === 'exercise' && currentExercise.duration > 0)) && (
         <div className="bg-white border-b border-gray-200 px-4 py-6">
           <TimerDisplay
             timeRemaining={timer.timeRemaining}
@@ -200,6 +201,19 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
             onSkip={timer.skip}
             isPaused={timer.isPaused}
           />
+        </div>
+      )}
+
+      {/* Rep-based Exercise Display */}
+      {sessionState === 'exercise' && currentExercise.duration === 0 && (
+        <div className="bg-white border-b border-gray-200 px-4 py-6">
+          <div className="text-center">
+            <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span className="text-3xl font-bold text-primary">{currentExercise.reps.split(' ')[0]}</span>
+            </div>
+            <p className="text-lg font-semibold text-gray-700 mb-2">Effectuez les répétitions</p>
+            <p className="text-sm text-gray-500">Prenez votre temps pour bien exécuter chaque mouvement</p>
+          </div>
         </div>
       )}
 
