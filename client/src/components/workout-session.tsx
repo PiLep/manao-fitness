@@ -474,10 +474,10 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
           {sessionState === 'exercise' && currentExercise.duration === 0 && (
             <>
               <button 
-                onClick={handleWorkoutComplete}
-                className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center text-teal-600 hover:bg-teal-200 transition-colors"
+                onClick={() => timer.skip()}
+                className="flex-1 bg-gradient-to-r from-teal-500 to-cyan-600 text-white rounded-lg py-3 font-semibold hover:from-teal-600 hover:to-cyan-700 transition-colors"
               >
-                <X className="w-5 h-5" />
+                Terminé
               </button>
             </>
           )}
