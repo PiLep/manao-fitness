@@ -83,7 +83,7 @@ export default function Home() {
         <>
           {/* Workout in Progress Banner - Fixed */}
           {workoutProgress && (
-            <div className="fixed top-[78px] left-0 right-0 bg-white border-b border-gray-200 z-15" style={{ maxWidth: '448px', margin: '0 auto' }}>
+            <div className="fixed top-[78px] left-0 right-0 bg-transparent z-15" style={{ maxWidth: '448px', margin: '0 auto' }}>
               <div className="px-4 py-3">
                 <WorkoutInProgress 
                   progress={workoutProgress}
