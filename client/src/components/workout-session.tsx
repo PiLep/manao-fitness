@@ -23,16 +23,27 @@ export interface WorkoutStats {
 type SessionState = 'ready' | 'exercise' | 'rest' | 'round-rest';
 
 export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSessionProps) {
-  const workout = workouts.find(w => w.id === workoutId);
+  const baseWorkout = workouts.find(w => w.id === workoutId);
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
   const [currentRound, setCurrentRound] = useState(1);
   const [sessionState, setSessionState] = useState<SessionState>('ready');
   const [startTime, setStartTime] = useState<number>(Date.now());
   const [exercisesCompleted, setExercisesCompleted] = useState(0);
+  
+  const queryClient = useQueryClient();
 
-  if (!workout) {
+  // Get user preferences to apply difficulty level
+  const { data: userPreferences } = useQuery({
+    queryKey: ['/api/user-preferences'],
+  });
+
+  if (!baseWorkout) {
     return <div>Workout not found</div>;
   }
+
+  // Apply difficulty modifications to the workout
+  const difficultyLevel: DifficultyLevel = userPreferences?.difficultyLevel || 'beginner';
+  const workout = applyDifficultyToWorkout(baseWorkout, difficultyLevel);
 
   const currentExercise = workout.exercises[currentExerciseIndex];
   const isLastExercise = currentExerciseIndex === workout.exercises.length - 1;
@@ -190,7 +201,9 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
           </button>
           <div className="text-center">
             <h2 className="text-lg font-bold">{workout.title}</h2>
-            <p className="text-sm text-white/80">Séance d'entraînement</p>
+            <p className="text-sm text-white/80">
+              Niveau: {difficultyLevel === 'beginner' ? 'Débutant' : difficultyLevel === 'intermediate' ? 'Intermédiaire' : 'Avancé'}
+            </p>
           </div>
           <div className="w-10 h-10" /> {/* Spacer */}
         </div>
