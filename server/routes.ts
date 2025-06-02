@@ -83,6 +83,43 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Workout progress routes for pause/resume functionality
+  app.get('/api/workout-progress', isAuthenticated, async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      const progress = await storage.getWorkoutProgress(userId);
+      res.json(progress);
+    } catch (error) {
+      console.error("Error fetching workout progress:", error);
+      res.status(500).json({ error: "Failed to fetch workout progress" });
+    }
+  });
+
+  app.post('/api/workout-progress', isAuthenticated, async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      const progress = await storage.saveWorkoutProgress({
+        userId,
+        ...req.body
+      });
+      res.json(progress);
+    } catch (error) {
+      console.error("Error saving workout progress:", error);
+      res.status(400).json({ error: "Failed to save workout progress" });
+    }
+  });
+
+  app.delete('/api/workout-progress', isAuthenticated, async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      await storage.deleteWorkoutProgress(userId);
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Error deleting workout progress:", error);
+      res.status(400).json({ error: "Failed to delete workout progress" });
+    }
+  });
+
   const httpServer = createServer(app);
 
   return httpServer;

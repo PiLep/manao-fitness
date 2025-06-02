@@ -30,12 +30,18 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
   const [sessionState, setSessionState] = useState<SessionState>('ready');
   const [startTime, setStartTime] = useState<number>(Date.now());
   const [exercisesCompleted, setExercisesCompleted] = useState(0);
+  const [resumingWorkout, setResumingWorkout] = useState(false);
   
   const queryClient = useQueryClient();
 
   // Get user preferences to apply difficulty level
   const { data: userPreferences } = useQuery({
     queryKey: ['/api/user-preferences'],
+  });
+
+  // Check for existing workout progress on mount
+  const { data: existingProgress } = useQuery({
+    queryKey: ['/api/workout-progress'],
   });
 
   if (!baseWorkout) {

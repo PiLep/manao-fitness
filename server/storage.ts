@@ -1,4 +1,4 @@
-import { users, workoutSessions, userPreferences, type User, type UpsertUser, type WorkoutSession, type InsertWorkoutSession, type UserPreferences, type InsertUserPreferences } from "@shared/schema";
+import { users, workoutSessions, userPreferences, workoutProgress, type User, type UpsertUser, type WorkoutSession, type InsertWorkoutSession, type UserPreferences, type InsertUserPreferences, type WorkoutProgress, type InsertWorkoutProgress } from "@shared/schema";
 import { db } from "./db";
 import { eq, desc } from "drizzle-orm";
 
@@ -19,6 +19,11 @@ export interface IStorage {
   // User preferences methods
   getUserPreferences(userId?: string): Promise<UserPreferences | undefined>;
   createOrUpdateUserPreferences(preferences: InsertUserPreferences): Promise<UserPreferences>;
+  
+  // Workout progress methods for pause/resume functionality
+  saveWorkoutProgress(progress: InsertWorkoutProgress): Promise<WorkoutProgress>;
+  getWorkoutProgress(userId: string): Promise<WorkoutProgress | undefined>;
+  deleteWorkoutProgress(userId: string): Promise<void>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -114,6 +119,36 @@ export class DatabaseStorage implements IStorage {
       })
       .returning();
     return userPrefs;
+  }
+
+  // Workout progress methods for pause/resume functionality
+  async saveWorkoutProgress(progress: InsertWorkoutProgress): Promise<WorkoutProgress> {
+    const [savedProgress] = await db
+      .insert(workoutProgress)
+      .values(progress)
+      .onConflictDoUpdate({
+        target: workoutProgress.userId,
+        set: {
+          ...progress,
+          updatedAt: new Date(),
+        },
+      })
+      .returning();
+    return savedProgress;
+  }
+
+  async getWorkoutProgress(userId: string): Promise<WorkoutProgress | undefined> {
+    const [progress] = await db
+      .select()
+      .from(workoutProgress)
+      .where(eq(workoutProgress.userId, userId));
+    return progress;
+  }
+
+  async deleteWorkoutProgress(userId: string): Promise<void> {
+    await db
+      .delete(workoutProgress)
+      .where(eq(workoutProgress.userId, userId));
   }
 }
 
