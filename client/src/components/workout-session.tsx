@@ -83,6 +83,13 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
     timer.start(getTimerDuration());
   };
 
+  // Auto-start timer for timed exercises when state changes
+  useEffect(() => {
+    if (sessionState === 'exercise' && currentExercise.duration > 0) {
+      timer.start(currentExercise.duration);
+    }
+  }, [sessionState, currentExercise.duration]);
+
   const handleWorkoutComplete = () => {
     const totalTime = Math.floor((Date.now() - startTime) / 1000);
     const stats: WorkoutStats = {
@@ -234,7 +241,16 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
               onClick={handleStartExercise}
               className="w-full bg-primary text-white rounded-xl py-4 font-semibold text-lg hover:bg-primary/90 transition-colors"
             >
-              Je suis prêt(e) !
+              {currentExercise.duration > 0 ? 'Commencer le timer' : 'Je suis prêt(e) !'}
+            </button>
+          )}
+          
+          {sessionState === 'exercise' && currentExercise.duration === 0 && (
+            <button 
+              onClick={() => handleTimerComplete()}
+              className="w-full bg-success text-white rounded-xl py-4 font-semibold text-lg hover:bg-success/90 transition-colors"
+            >
+              Exercice terminé
             </button>
           )}
           
