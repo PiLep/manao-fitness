@@ -293,6 +293,24 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
               Exercice terminé
             </button>
           )}
+
+          {(sessionState === 'rest' || sessionState === 'round-rest') && (
+            <button 
+              onClick={() => timer.skip()}
+              className="w-full bg-accent text-white rounded-xl py-4 font-semibold text-lg hover:bg-accent/90 transition-colors"
+            >
+              Passer le repos
+            </button>
+          )}
+
+          {sessionState === 'exercise' && currentExercise.duration > 0 && (
+            <button 
+              onClick={() => timer.skip()}
+              className="w-full bg-accent text-white rounded-xl py-4 font-semibold text-lg hover:bg-accent/90 transition-colors"
+            >
+              Passer l'exercice
+            </button>
+          )}
           
           <button 
             onClick={handleWorkoutComplete}
