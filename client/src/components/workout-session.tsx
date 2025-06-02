@@ -272,9 +272,9 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
   const nextExercise = getNextExerciseInfo();
 
   return (
-    <div className="max-w-md mx-auto min-h-screen flex flex-col">
+    <div className="max-w-md mx-auto min-h-screen">
       {/* Session Header */}
-      <div className="bg-gradient-to-r from-primary to-orange-400 text-white px-4 py-4 flex-shrink-0">
+      <div className="bg-gradient-to-r from-primary to-orange-400 text-white px-4 py-4">
         <div className="flex items-center justify-between mb-3">
           <button 
             onClick={onBack}
@@ -313,8 +313,8 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
         </div>
       </div>
 
-      {/* Scrollable Content Area */}
-      <div className="flex-1 overflow-y-auto">
+      {/* Main Content with bottom padding for fixed bar */}
+      <div className="pb-20">
         {/* Timer Section - Only for timed exercises and rest periods */}
         {(sessionState === 'rest' || sessionState === 'round-rest' || 
           (sessionState === 'exercise' && currentExercise.duration > 0)) && (
@@ -383,8 +383,8 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
         </div>
       </div>
 
-      {/* Action Bar - positioned at bottom without fixed */}
-      <div className="bg-white border-t border-gray-200 px-4 py-3 flex-shrink-0">
+      {/* Fixed Action Bar - Always visible */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-3 z-10" style={{ maxWidth: '448px', margin: '0 auto' }}>
         <div className="flex gap-3">
           {sessionState === 'ready' && currentExercise.duration > 0 && (
             <>
