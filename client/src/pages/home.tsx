@@ -36,17 +36,30 @@ export default function Home() {
       <header className="bg-white shadow-sm border-b border-gray-200">
         <div className="max-w-md mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-primary to-orange-400 rounded-xl flex items-center justify-center">
-              <Dumbbell className="w-5 h-5 text-white" />
+            <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-blue-600 rounded-xl flex items-center justify-center">
+              <Activity className="w-5 h-5 text-white" />
             </div>
             <div>
               <h1 className="text-xl font-bold text-gray-900">FitTimer</h1>
               <p className="text-xs text-gray-500">Entraînement Simple</p>
             </div>
           </div>
-          <button className="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors">
-            <Settings className="w-5 h-5" />
-          </button>
+          <div className="flex items-center space-x-2">
+            {user && (
+              <div className="flex items-center space-x-2 text-sm text-gray-600">
+                <User className="w-4 h-4" />
+                <span>{user.firstName || user.email}</span>
+              </div>
+            )}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => window.location.href = '/api/logout'}
+              className="text-gray-600 hover:text-gray-800"
+            >
+              <LogOut className="w-4 h-4" />
+            </Button>
+          </div>
         </div>
       </header>
 
