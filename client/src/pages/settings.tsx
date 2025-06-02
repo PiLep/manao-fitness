@@ -3,7 +3,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-// Custom toggle component to avoid issues
+import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -216,19 +216,13 @@ export default function Settings({ onBack }: SettingsPageProps) {
                 <Label htmlFor="sound-toggle">Sons de notification</Label>
                 <p className="text-sm text-gray-500">Entendre les alertes de fin de timer</p>
               </div>
-              <button
-                type="button"
-                onClick={() => setSettings(prev => ({ ...prev, soundEnabled: !prev.soundEnabled }))}
-                className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 ${
-                  settings.soundEnabled ? 'bg-orange-500' : 'bg-gray-200'
-                }`}
-              >
-                <span
-                  className={`pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition duration-200 ease-in-out ${
-                    settings.soundEnabled ? 'translate-x-5' : 'translate-x-0'
-                  }`}
-                />
-              </button>
+              <Switch
+                id="sound-toggle"
+                checked={settings.soundEnabled}
+                onCheckedChange={(checked) => 
+                  setSettings(prev => ({ ...prev, soundEnabled: checked }))
+                }
+              />
             </div>
           </CardContent>
         </Card>
