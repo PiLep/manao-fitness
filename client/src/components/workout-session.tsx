@@ -142,7 +142,7 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
             currentExerciseIndex,
             exercisesCompleted: newExercisesCompleted,
             sessionState: 'rest',
-            startTime: new Date(startTime),
+            startTime: startTime,
             timeRemaining: workout.restBetweenExercises,
             isPaused: false,
           });
