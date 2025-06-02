@@ -272,9 +272,9 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
   const nextExercise = getNextExerciseInfo();
 
   return (
-    <div className="max-w-md mx-auto h-screen flex flex-col">
+    <div className="max-w-md mx-auto h-screen">
       {/* Fixed Session Header */}
-      <div className="bg-gradient-to-r from-primary to-orange-400 text-white px-4 py-4 flex-shrink-0">
+      <div className="fixed top-0 left-0 right-0 bg-gradient-to-r from-primary to-orange-400 text-white px-4 py-4 z-20" style={{ maxWidth: '448px', margin: '0 auto' }}>
         <div className="flex items-center justify-between mb-3">
           <button 
             onClick={onBack}
@@ -316,7 +316,7 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
       {/* Fixed Timer Section */}
       {(sessionState === 'rest' || sessionState === 'round-rest' || 
         (sessionState === 'exercise' && currentExercise.duration > 0)) && (
-        <div className="bg-white border-b border-gray-200 px-4 py-6 flex-shrink-0">
+        <div className="fixed left-0 right-0 bg-white border-b border-gray-200 px-4 py-6 z-10" style={{ top: '160px', maxWidth: '448px', margin: '0 auto' }}>
           <TimerDisplay
             timeRemaining={timer.timeRemaining}
             progress={timer.progress}
@@ -330,7 +330,7 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
 
       {/* Fixed Rep Display */}
       {(sessionState === 'ready' || sessionState === 'exercise') && currentExercise.duration === 0 && (
-        <div className="bg-white border-b border-gray-200 px-4 py-6 flex-shrink-0">
+        <div className="fixed left-0 right-0 bg-white border-b border-gray-200 px-4 py-6 z-10" style={{ top: '160px', maxWidth: '448px', margin: '0 auto' }}>
           <div className="text-center">
             <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
               <span className="text-3xl font-bold text-primary">{currentExercise.reps.split(' ')[0]}</span>
@@ -351,7 +351,7 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
       )}
 
       {/* Scrollable Exercise Content */}
-      <div className="flex-1 overflow-y-auto bg-white px-4 py-6">
+      <div className="absolute inset-0 bg-white px-4 py-6 overflow-y-auto" style={{ top: '300px', bottom: '80px' }}>
         <div className="text-center mb-6">
           <h3 className="text-2xl font-bold text-gray-900 mb-2">{currentExercise.name}</h3>
           <p className="text-lg text-primary font-semibold">{currentExercise.reps}</p>
@@ -381,7 +381,7 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
       </div>
 
       {/* Fixed Action Bar - Always visible */}
-      <div className="bg-white border-t border-gray-200 px-4 py-3 flex-shrink-0">
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-3 z-20" style={{ maxWidth: '448px', margin: '0 auto' }}>
         <div className="flex gap-3">
           {sessionState === 'ready' && currentExercise.duration > 0 && (
             <>
