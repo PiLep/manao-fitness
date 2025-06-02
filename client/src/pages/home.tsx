@@ -78,27 +78,31 @@ export default function Home() {
         </div>
       </header>
 
+      {/* Workout in Progress Banner */}
+      {appState === 'selection' && workoutProgress && (
+        <div className="fixed top-[90px] left-0 right-0 bg-white border-b border-gray-200 z-15" style={{ maxWidth: '448px', margin: '0 auto' }}>
+          <div className="px-4 py-3">
+            <WorkoutInProgress 
+              progress={workoutProgress}
+              onResumeWorkout={handleResumeWorkout}
+            />
+          </div>
+        </div>
+      )}
+
       {/* Scrollable Main Content */}
       {appState === 'selection' && (
         <>
           <div 
             className="max-w-md mx-auto overflow-y-auto home-content" 
             style={{ 
-              paddingTop: '90px', 
+              paddingTop: workoutProgress ? '180px' : '90px', 
               paddingBottom: '100px',
               height: '100vh',
               scrollbarWidth: 'none',
               msOverflowStyle: 'none'
             }}
           >
-            {/* Show workout in progress if exists */}
-            {workoutProgress && (
-              <WorkoutInProgress 
-                progress={workoutProgress}
-                onResumeWorkout={handleResumeWorkout}
-              />
-            )}
-            
             <WorkoutSelection 
               onSelectWorkout={handleSelectWorkout}
               hasWorkoutInProgress={!!workoutProgress}
