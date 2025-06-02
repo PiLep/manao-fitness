@@ -12,20 +12,20 @@ export interface DifficultyModifiers {
 export const DIFFICULTY_SETTINGS: Record<DifficultyLevel, DifficultyModifiers> = {
   beginner: {
     exerciseDurationMultiplier: 0.7,  // -30% durée exercices
-    exerciseRestMultiplier: 1.5,      // +50% repos entre exercices
-    roundRestMultiplier: 1.3,         // +30% repos entre tours
+    exerciseRestMultiplier: 0.8,      // -20% repos entre exercices (réduit)
+    roundRestMultiplier: 1.0,         // repos normal entre tours
     repsMultiplier: 0.8,              // -20% répétitions
   },
   intermediate: {
     exerciseDurationMultiplier: 1.0,  // durée normale
-    exerciseRestMultiplier: 1.0,      // repos normal
-    roundRestMultiplier: 1.0,         // repos normal
+    exerciseRestMultiplier: 0.6,      // -40% repos entre exercices (réduit)
+    roundRestMultiplier: 0.8,         // -20% repos entre tours (réduit)
     repsMultiplier: 1.0,              // répétitions normales
   },
   advanced: {
     exerciseDurationMultiplier: 1.3,  // +30% durée exercices
-    exerciseRestMultiplier: 0.7,      // -30% repos entre exercices
-    roundRestMultiplier: 0.8,         // -20% repos entre tours
+    exerciseRestMultiplier: 0.4,      // -60% repos entre exercices (très réduit)
+    roundRestMultiplier: 0.6,         // -40% repos entre tours (réduit)
     repsMultiplier: 1.2,              // +20% répétitions
   },
 };
@@ -77,10 +77,10 @@ export function getDifficultyLabel(level: DifficultyLevel): string {
 export function getDifficultyDescription(level: DifficultyLevel): string {
   switch (level) {
     case 'beginner':
-      return 'Temps d\'exercice réduits, pauses plus longues, moins de répétitions';
+      return 'Temps d\'exercice réduits, pauses courtes, moins de répétitions';
     case 'intermediate':
-      return 'Temps d\'exercice standards, pauses normales, répétitions standards';
+      return 'Temps d\'exercice standards, pauses très courtes, répétitions standards';
     case 'advanced':
-      return 'Temps d\'exercice étendus, pauses plus courtes, plus de répétitions';
+      return 'Temps d\'exercice étendus, pauses minimales, plus de répétitions';
   }
 }
