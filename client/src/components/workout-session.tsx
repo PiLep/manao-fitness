@@ -349,14 +349,7 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
               <p className="text-lg font-semibold text-gray-700 mb-2">Effectuez les répétitions</p>
               <p className="text-sm text-gray-500">Prenez votre temps pour bien exécuter chaque mouvement</p>
               
-              {sessionState === 'exercise' && (
-                <button 
-                  onClick={() => handleTimerComplete()}
-                  className="mt-4 w-full bg-green-600 text-white rounded-xl py-3 font-semibold hover:bg-green-700 transition-colors shadow-md border border-green-700"
-                >
-                  ✓ Exercice terminé
-                </button>
-              )}
+
             </div>
           </div>
         )}
