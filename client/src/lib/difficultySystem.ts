@@ -60,6 +60,12 @@ function adjustReps(repsString: string, multiplier: number): string {
   const originalReps = parseInt(match[1]);
   const newReps = Math.max(1, Math.round(originalReps * multiplier));
   
+  // Gestion spéciale pour les fentes qui ont des répétitions par côté
+  if (repsString.includes('fentes') && repsString.includes('de chaque côté')) {
+    const repsPerSide = Math.round(newReps / 2);
+    return `${newReps} fentes (${repsPerSide} de chaque côté)`;
+  }
+  
   return repsString.replace(/\d+/, newReps.toString());
 }
 
