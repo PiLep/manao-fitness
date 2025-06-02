@@ -99,7 +99,7 @@ export default function Settings({ onBack }: SettingsPageProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-cyan-50 to-teal-100">
+    <div className="min-h-screen bg-gradient-to-br from-white to-teal-100">
       {/* Fixed Header */}
       <header className="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-20" style={{ maxWidth: '448px', margin: '0 auto' }}>
         <div className="px-4 py-3 flex items-center justify-between">
