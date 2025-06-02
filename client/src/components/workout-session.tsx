@@ -313,45 +313,44 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
         </div>
       </div>
 
-      {/* Fixed Timer Section */}
-      {(sessionState === 'rest' || sessionState === 'round-rest' || 
-        (sessionState === 'exercise' && currentExercise.duration > 0)) && (
-        <div className="fixed left-0 right-0 bg-white border-b border-gray-200 px-4 py-6 z-10" style={{ top: '160px', maxWidth: '448px', margin: '0 auto' }}>
-          <TimerDisplay
-            timeRemaining={timer.timeRemaining}
-            progress={timer.progress}
-            label={getTimerLabel()}
-            onPause={timer.pause}
-            onSkip={timer.skip}
-            isPaused={timer.isPaused}
-          />
-        </div>
-      )}
-
-      {/* Fixed Rep Display */}
-      {(sessionState === 'ready' || sessionState === 'exercise') && currentExercise.duration === 0 && (
-        <div className="fixed left-0 right-0 bg-white border-b border-gray-200 px-4 py-6 z-10" style={{ top: '160px', maxWidth: '448px', margin: '0 auto' }}>
-          <div className="text-center">
-            <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-3xl font-bold text-primary">{currentExercise.reps.split(' ')[0]}</span>
-            </div>
-            <p className="text-lg font-semibold text-gray-700 mb-2">Effectuez les répétitions</p>
-            <p className="text-sm text-gray-500">Prenez votre temps pour bien exécuter chaque mouvement</p>
-            
-            {sessionState === 'exercise' && (
-              <button 
-                onClick={() => handleTimerComplete()}
-                className="mt-4 w-full bg-green-600 text-white rounded-xl py-3 font-semibold hover:bg-green-700 transition-colors shadow-md border border-green-700"
-              >
-                ✓ Exercice terminé
-              </button>
-            )}
-          </div>
-        </div>
-      )}
-
       {/* Scrollable Exercise Content */}
-      <div className="absolute inset-0 bg-white px-4 py-6 overflow-y-auto" style={{ top: '300px', bottom: '80px' }}>
+      <div className="absolute inset-0 bg-white px-4 py-6 overflow-y-auto" style={{ top: '160px', bottom: '80px' }}>
+        {/* Timer Section - Only for timed exercises and rest periods */}
+        {(sessionState === 'rest' || sessionState === 'round-rest' || 
+          (sessionState === 'exercise' && currentExercise.duration > 0)) && (
+          <div className="border-b border-gray-200 pb-6 mb-6">
+            <TimerDisplay
+              timeRemaining={timer.timeRemaining}
+              progress={timer.progress}
+              label={getTimerLabel()}
+              onPause={timer.pause}
+              onSkip={timer.skip}
+              isPaused={timer.isPaused}
+            />
+          </div>
+        )}
+
+        {/* Rep Display */}
+        {(sessionState === 'ready' || sessionState === 'exercise') && currentExercise.duration === 0 && (
+          <div className="border-b border-gray-200 pb-6 mb-6">
+            <div className="text-center">
+              <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-3xl font-bold text-primary">{currentExercise.reps.split(' ')[0]}</span>
+              </div>
+              <p className="text-lg font-semibold text-gray-700 mb-2">Effectuez les répétitions</p>
+              <p className="text-sm text-gray-500">Prenez votre temps pour bien exécuter chaque mouvement</p>
+              
+              {sessionState === 'exercise' && (
+                <button 
+                  onClick={() => handleTimerComplete()}
+                  className="mt-4 w-full bg-green-600 text-white rounded-xl py-3 font-semibold hover:bg-green-700 transition-colors shadow-md border border-green-700"
+                >
+                  ✓ Exercice terminé
+                </button>
+              )}
+            </div>
+          </div>
+        )}
         <div className="text-center mb-6">
           <h3 className="text-2xl font-bold text-gray-900 mb-2">{currentExercise.name}</h3>
           <p className="text-lg text-primary font-semibold">{currentExercise.reps}</p>
