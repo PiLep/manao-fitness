@@ -274,7 +274,7 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
   return (
     <div className="max-w-md mx-auto h-screen">
       {/* Fixed Session Header */}
-      <div className="fixed top-0 left-0 right-0 bg-gradient-to-r from-primary to-orange-400 text-white px-4 py-4 z-20" style={{ maxWidth: '448px', margin: '0 auto' }}>
+      <div className="fixed top-0 left-0 right-0 bg-gradient-to-r from-primary to-secondary text-white px-4 py-4 z-20" style={{ maxWidth: '448px', margin: '0 auto' }}>
         <div className="flex items-center justify-between mb-3">
           <button 
             onClick={onBack}

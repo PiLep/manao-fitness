@@ -44,17 +44,17 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="min-h-screen bg-gradient-to-br from-cyan-50 to-teal-100">
       {/* Fixed Header */}
       <header className="fixed top-0 left-0 right-0 bg-white shadow-sm border-b border-gray-200 z-20" style={{ maxWidth: '448px', margin: '0 auto' }}>
         <div className="px-4 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-blue-600 rounded-xl flex items-center justify-center">
+            <div className="w-10 h-10 bg-gradient-to-br from-teal-500 to-blue-500 rounded-xl flex items-center justify-center">
               <Activity className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-gray-900">FitTimer</h1>
-              <p className="text-xs text-gray-500">Entraînement Simple</p>
+              <h1 className="text-xl font-bold text-gray-900">Manao</h1>
+              <p className="text-xs text-gray-500">Fitness Polynésien</p>
             </div>
           </div>
           <div className="flex items-center space-x-2">

@@ -64,11 +64,11 @@
   --card-foreground: 20 14.3% 4.1%;
   --border: 20 5.9% 90%;
   --input: 20 5.9% 90%;
-  --primary: 14 100% 57%; /* #FF6B35 */
+  --primary: 175 84% 40%; /* Teal océanique */
   --primary-foreground: 211 100% 99%;
-  --secondary: 215 100% 34%; /* #004AAD */
+  --secondary: 200 100% 50%; /* Bleu tropical */
   --secondary-foreground: 60 9.1% 97.8%;
-  --accent: 172 100% 41%; /* #00D4AA */
+  --accent: 340 82% 62%; /* Corail polynésien */
   --accent-foreground: 24 9.8% 10%;
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 60 9.1% 97.8%;

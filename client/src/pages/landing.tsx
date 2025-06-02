@@ -9,12 +9,12 @@ export default function Landing() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-blue-600 rounded-xl flex items-center justify-center">
+              <div className="w-10 h-10 bg-gradient-to-br from-teal-500 to-blue-500 rounded-xl flex items-center justify-center">
                 <Activity className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-gray-900">FitTimer</h1>
-                <p className="text-sm text-gray-600">Entraînement Simple</p>
+                <h1 className="text-xl font-bold text-gray-900">Manao</h1>
+                <p className="text-sm text-gray-600">Fitness Polynésien</p>
               </div>
             </div>
             <Button 
