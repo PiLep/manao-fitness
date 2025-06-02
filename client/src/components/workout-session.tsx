@@ -243,9 +243,9 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
             {sessionState === 'exercise' && (
               <button 
                 onClick={() => handleTimerComplete()}
-                className="mt-4 w-full bg-success text-white rounded-xl py-3 font-semibold hover:bg-success/90 transition-colors"
+                className="mt-4 w-full bg-green-600 text-white rounded-xl py-3 font-semibold hover:bg-green-700 transition-colors shadow-md border border-green-700"
               >
-                Exercice terminé
+                ✓ Exercice terminé
               </button>
             )}
           </div>
@@ -303,14 +303,7 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
             </button>
           )}
           
-          {sessionState === 'exercise' && currentExercise.duration === 0 && (
-            <button 
-              onClick={() => handleTimerComplete()}
-              className="w-full bg-success text-white rounded-xl py-4 font-semibold text-lg hover:bg-success/90 transition-colors"
-            >
-              Exercice terminé
-            </button>
-          )}
+
 
           {(sessionState === 'rest' || sessionState === 'round-rest') && (
             <button 
