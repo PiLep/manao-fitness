@@ -3,7 +3,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Switch } from '@/components/ui/switch';
+import { SimpleSwitch } from '@/components/simple-switch';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -216,7 +216,7 @@ export default function Settings({ onBack }: SettingsPageProps) {
                 <Label htmlFor="sound-toggle">Sons de notification</Label>
                 <p className="text-sm text-gray-500">Entendre les alertes de fin de timer</p>
               </div>
-              <Switch
+              <SimpleSwitch
                 id="sound-toggle"
                 checked={settings.soundEnabled}
                 onCheckedChange={(checked) => 
