@@ -39,13 +39,10 @@ export default function Settings({ onBack }: SettingsPageProps) {
 
   const saveSettingsMutation = useMutation({
     mutationFn: async (newSettings: UserSettings) => {
-      await apiRequest('/api/user-preferences', {
-        method: 'POST',
-        body: JSON.stringify({
-          soundEnabled: newSettings.soundEnabled,
-          difficultyLevel: newSettings.difficultyLevel,
-          preferredWorkouts: newSettings.preferredWorkouts
-        })
+      await apiRequest('POST', '/api/user-preferences', {
+        soundEnabled: newSettings.soundEnabled,
+        difficultyLevel: newSettings.difficultyLevel,
+        preferredWorkouts: newSettings.preferredWorkouts
       });
     },
     onSuccess: () => {
