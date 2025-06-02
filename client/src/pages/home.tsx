@@ -2,11 +2,14 @@ import { useState } from 'react';
 import { WorkoutSelection } from '@/components/workout-selection';
 import { WorkoutSession, type WorkoutStats } from '@/components/workout-session';
 import { WorkoutComplete } from '@/components/workout-complete';
-import { Dumbbell, Settings } from 'lucide-react';
+import { useAuth } from '@/hooks/useAuth';
+import { Button } from '@/components/ui/button';
+import { Activity, LogOut, User } from 'lucide-react';
 
 type AppState = 'selection' | 'session' | 'complete';
 
 export default function Home() {
+  const { user } = useAuth();
   const [appState, setAppState] = useState<AppState>('selection');
   const [selectedWorkoutId, setSelectedWorkoutId] = useState<string>('');
   const [workoutStats, setWorkoutStats] = useState<WorkoutStats | null>(null);
