@@ -479,6 +479,12 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
               >
                 Terminé
               </button>
+              <button 
+                onClick={handleWorkoutComplete}
+                className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center text-teal-600 hover:bg-teal-200 transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
             </>
           )}
         </div>
