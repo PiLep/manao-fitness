@@ -128,7 +128,7 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
             currentExerciseIndex,
             exercisesCompleted: newExercisesCompleted,
             sessionState: 'round-rest',
-            startTime: new Date(startTime).toISOString(),
+            startTime: new Date(startTime),
             timeRemaining: workout.restBetweenRounds,
             isPaused: false,
           });
@@ -142,7 +142,7 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
             currentExerciseIndex,
             exercisesCompleted: newExercisesCompleted,
             sessionState: 'rest',
-            startTime: new Date(startTime).toISOString(),
+            startTime: new Date(startTime),
             timeRemaining: workout.restBetweenExercises,
             isPaused: false,
           });
@@ -171,7 +171,7 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
       currentExerciseIndex,
       exercisesCompleted,
       sessionState: 'exercise',
-      startTime: new Date(startTime).toISOString(),
+      startTime: new Date(startTime),
       timeRemaining: getTimerDuration(),
       isPaused: false,
     });
