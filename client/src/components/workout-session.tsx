@@ -4,7 +4,7 @@ import { applyDifficultyToWorkout, type DifficultyLevel } from '@/lib/difficulty
 import { useTimer } from '@/hooks/use-timer';
 import { useWakeLock } from '@/hooks/use-wake-lock';
 import { TimerDisplay } from './timer-display';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Play, Pause, X } from 'lucide-react';
 import { apiRequest } from '@/lib/queryClient';
 import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
 
@@ -272,34 +272,34 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
   const nextExercise = getNextExerciseInfo();
 
   return (
-    <div className="max-w-md mx-auto">
+    <div className="max-w-md mx-auto pb-20">
       {/* Session Header */}
-      <div className="bg-gradient-to-r from-primary to-orange-400 text-white px-4 py-6">
-        <div className="flex items-center justify-between mb-4">
+      <div className="bg-gradient-to-r from-primary to-orange-400 text-white px-4 py-4">
+        <div className="flex items-center justify-between mb-3">
           <button 
             onClick={onBack}
-            className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center text-white hover:bg-white/30 transition-colors"
+            className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center text-white hover:bg-white/30 transition-colors"
           >
-            <ArrowLeft className="w-5 h-5" />
+            <ArrowLeft className="w-4 h-4" />
           </button>
           <div className="text-center">
-            <h2 className="text-lg font-bold">{workout.title}</h2>
-            <p className="text-sm text-white/80">
+            <h2 className="text-base font-bold">{workout.title}</h2>
+            <p className="text-xs text-white/80">
               Niveau: {difficultyLevel === 'beginner' ? 'Débutant' : difficultyLevel === 'intermediate' ? 'Intermédiaire' : 'Avancé'}
             </p>
           </div>
-          <div className="w-10 h-10" /> {/* Spacer */}
+          <div className="w-8 h-8" /> {/* Spacer */}
         </div>
         
         {/* Progress Bar */}
-        <div className="mb-4">
-          <div className="flex justify-between text-sm mb-2">
+        <div className="mb-3">
+          <div className="flex justify-between text-xs mb-1">
             <span>Progression</span>
             <span>{currentExerciseIndex + 1}/{workout.exercises.length} exercices</span>
           </div>
-          <div className="bg-white/20 rounded-full h-2">
+          <div className="bg-white/20 rounded-full h-1.5">
             <div 
-              className="bg-white rounded-full h-2 transition-all duration-300"
+              className="bg-white rounded-full h-1.5 transition-all duration-300"
               style={{ width: `${getProgressPercentage()}%` }}
             />
           </div>
@@ -307,7 +307,7 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
 
         {/* Round Counter */}
         <div className="text-center">
-          <span className="bg-white/20 px-3 py-1 rounded-full text-sm font-medium">
+          <span className="bg-white/20 px-2 py-1 rounded-full text-xs font-medium">
             Tour {currentRound}/{workout.rounds}
           </span>
         </div>
@@ -380,53 +380,105 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
         </div>
       </div>
 
-      {/* Action Buttons */}
-      <div className="bg-white border-t border-gray-200 px-4 py-6">
-        <div className="space-y-3">
+      {/* Fixed Action Bar */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-3 max-w-md mx-auto">
+        <div className="flex gap-3">
           {sessionState === 'ready' && currentExercise.duration > 0 && (
-            <button 
-              onClick={handleStartExercise}
-              className="w-full bg-primary text-white rounded-xl py-4 font-semibold text-lg hover:bg-primary/90 transition-colors"
-            >
-              Commencer le timer
-            </button>
+            <>
+              <button 
+                onClick={handleStartExercise}
+                className="flex-1 bg-primary text-white rounded-lg py-3 font-semibold hover:bg-primary/90 transition-colors"
+              >
+                Commencer
+              </button>
+              <button 
+                onClick={handleWorkoutComplete}
+                className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </>
           )}
 
           {sessionState === 'ready' && currentExercise.duration === 0 && (
-            <button 
-              onClick={handleStartExercise}
-              className="w-full bg-primary text-white rounded-xl py-4 font-semibold text-lg hover:bg-primary/90 transition-colors"
-            >
-              Je suis prêt(e) !
-            </button>
+            <>
+              <button 
+                onClick={handleStartExercise}
+                className="flex-1 bg-primary text-white rounded-lg py-3 font-semibold hover:bg-primary/90 transition-colors"
+              >
+                Prêt !
+              </button>
+              <button 
+                onClick={handleWorkoutComplete}
+                className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </>
           )}
           
-
-
           {(sessionState === 'rest' || sessionState === 'round-rest') && (
-            <button 
-              onClick={() => timer.skip()}
-              className="w-full bg-accent text-white rounded-xl py-4 font-semibold text-lg hover:bg-accent/90 transition-colors"
-            >
-              Passer le repos
-            </button>
+            <>
+              <button 
+                onClick={() => timer.pause()}
+                className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors"
+              >
+                {timer.isPaused ? <Play className="w-5 h-5" /> : <Pause className="w-5 h-5" />}
+              </button>
+              <button 
+                onClick={() => timer.skip()}
+                className="flex-1 bg-accent text-white rounded-lg py-3 font-semibold hover:bg-accent/90 transition-colors"
+              >
+                Passer le repos
+              </button>
+              <button 
+                onClick={handleWorkoutComplete}
+                className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </>
           )}
 
           {sessionState === 'exercise' && currentExercise.duration > 0 && (
-            <button 
-              onClick={() => timer.skip()}
-              className="w-full bg-accent text-white rounded-xl py-4 font-semibold text-lg hover:bg-accent/90 transition-colors"
-            >
-              Passer l'exercice
-            </button>
+            <>
+              <button 
+                onClick={() => timer.pause()}
+                className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors"
+              >
+                {timer.isPaused ? <Play className="w-5 h-5" /> : <Pause className="w-5 h-5" />}
+              </button>
+              <button 
+                onClick={() => timer.skip()}
+                className="flex-1 bg-accent text-white rounded-lg py-3 font-semibold hover:bg-accent/90 transition-colors"
+              >
+                Passer
+              </button>
+              <button 
+                onClick={handleWorkoutComplete}
+                className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </>
           )}
-          
-          <button 
-            onClick={handleWorkoutComplete}
-            className="w-full bg-gray-100 text-gray-700 rounded-xl py-3 font-medium hover:bg-gray-200 transition-colors"
-          >
-            Terminer la séance
-          </button>
+
+          {sessionState === 'exercise' && currentExercise.duration === 0 && (
+            <>
+              <button 
+                onClick={() => timer.skip()}
+                className="flex-1 bg-primary text-white rounded-lg py-3 font-semibold hover:bg-primary/90 transition-colors"
+              >
+                Terminé
+              </button>
+              <button 
+                onClick={handleWorkoutComplete}
+                className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </>
+          )}
         </div>
       </div>
     </div>
