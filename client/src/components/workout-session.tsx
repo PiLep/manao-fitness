@@ -327,7 +327,7 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
         {/* Timer Section - Only for timed exercises and rest periods */}
         {(sessionState === 'rest' || sessionState === 'round-rest' || 
           (sessionState === 'exercise' && currentExercise.duration > 0)) && (
-          <div className="border-b border-gray-200 pb-6 mb-6">
+          <div className="border-b border-gray-200 pb-6 mb-6 pt-4">
             <TimerDisplay
               timeRemaining={timer.timeRemaining}
               progress={timer.progress}
@@ -341,7 +341,7 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
 
         {/* Rep Display */}
         {(sessionState === 'ready' || sessionState === 'exercise') && currentExercise.duration === 0 && (
-          <div className="border-b border-gray-200 pb-6 mb-6">
+          <div className="border-b border-gray-200 pb-6 mb-6 pt-4">
             <div className="text-center">
               <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-3xl font-bold text-primary">{currentExercise.reps.split(' ')[0]}</span>
