@@ -62,7 +62,7 @@ export default function Home() {
               variant="ghost"
               size="sm"
               onClick={() => setAppState('settings')}
-              className="text-gray-600 hover:text-gray-800"
+              className="text-teal-600 hover:text-teal-800 hover:bg-teal-50"
             >
               <SettingsIcon className="w-4 h-4" />
             </Button>
@@ -70,7 +70,7 @@ export default function Home() {
               variant="ghost"
               size="sm"
               onClick={() => window.location.href = '/api/logout'}
-              className="text-gray-600 hover:text-gray-800"
+              className="text-teal-600 hover:text-teal-800 hover:bg-teal-50"
             >
               <LogOut className="w-4 h-4" />
             </Button>

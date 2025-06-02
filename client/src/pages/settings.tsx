@@ -108,7 +108,7 @@ export default function Settings({ onBack }: SettingsPageProps) {
               variant="ghost"
               size="sm"
               onClick={onBack}
-              className="text-gray-600 hover:text-gray-800"
+              className="text-teal-600 hover:text-teal-800 hover:bg-teal-50"
             >
               <ArrowLeft className="w-5 h-5" />
             </Button>
@@ -124,7 +124,7 @@ export default function Settings({ onBack }: SettingsPageProps) {
             variant="ghost"
             size="sm"
             onClick={() => window.location.href = '/api/logout'}
-            className="text-gray-600 hover:text-gray-800"
+            className="text-teal-600 hover:text-teal-800 hover:bg-teal-50"
           >
             <LogOut className="w-4 h-4" />
           </Button>
@@ -235,7 +235,7 @@ export default function Settings({ onBack }: SettingsPageProps) {
         {/* Save Button */}
         <Button 
           onClick={handleSaveSettings}
-          className="w-full bg-gradient-to-r from-orange-500 to-blue-600 hover:from-orange-600 hover:to-blue-700 text-white"
+          className="w-full bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 text-white"
           disabled={saveSettingsMutation.isPending}
         >
           {saveSettingsMutation.isPending ? 'Sauvegarde...' : 'Sauvegarder les paramètres'}

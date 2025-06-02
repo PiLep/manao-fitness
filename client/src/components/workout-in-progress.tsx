@@ -100,15 +100,10 @@ export function WorkoutInProgress({ progress, onResumeWorkout }: WorkoutInProgre
         <div className="flex gap-2">
           <Button 
             onClick={() => onResumeWorkout(progress.workoutId)}
-            className="flex-1 text-sm py-2"
+            className="flex-1 text-sm py-2 bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 text-white border-none"
             size="sm"
-            style={{ 
-              backgroundColor: '#ea580c', 
-              color: 'white', 
-              border: 'none' 
-            }}
           >
-            <Play className="h-3 w-3 mr-1" style={{ color: 'white' }} />
+            <Play className="h-3 w-3 mr-1 text-white" />
             Reprendre
           </Button>
           
@@ -116,7 +111,7 @@ export function WorkoutInProgress({ progress, onResumeWorkout }: WorkoutInProgre
             variant="outline"
             onClick={() => deleteProgressMutation.mutate()}
             disabled={deleteProgressMutation.isPending}
-            className="border-orange-300 text-orange-700 hover:bg-orange-100 dark:border-orange-700 dark:text-orange-300"
+            className="border-teal-300 text-teal-700 hover:bg-teal-100 dark:border-teal-700 dark:text-teal-300"
             size="sm"
           >
             <X className="h-3 w-3" />

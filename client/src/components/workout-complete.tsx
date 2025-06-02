@@ -56,11 +56,11 @@ export function WorkoutComplete({ stats, onNewWorkout }: WorkoutCompleteProps) {
         <div className="space-y-3">
           <button 
             onClick={onNewWorkout}
-            className="w-full bg-primary text-white rounded-xl py-4 font-semibold text-lg hover:bg-primary/90 transition-colors"
+            className="w-full bg-gradient-to-r from-teal-500 to-cyan-600 text-white rounded-xl py-4 font-semibold text-lg hover:from-teal-600 hover:to-cyan-700 transition-colors"
           >
             Nouvelle séance
           </button>
-          <button className="w-full bg-gray-100 text-gray-700 rounded-xl py-3 font-medium hover:bg-gray-200 transition-colors">
+          <button className="w-full bg-teal-50 text-teal-700 rounded-xl py-3 font-medium hover:bg-teal-100 transition-colors border border-teal-200">
             Partager mes résultats
           </button>
         </div>
