@@ -98,10 +98,15 @@ export function WorkoutInProgress({ progress, onResumeWorkout }: WorkoutInProgre
         <div className="flex gap-2">
           <Button 
             onClick={() => onResumeWorkout(progress.workoutId)}
-            className="flex-1 bg-orange-600 hover:bg-orange-700 text-white text-sm py-2 border-0"
+            className="flex-1 text-sm py-2"
             size="sm"
+            style={{ 
+              backgroundColor: '#ea580c', 
+              color: 'white', 
+              border: 'none' 
+            }}
           >
-            <Play className="h-3 w-3 mr-1 text-white" />
+            <Play className="h-3 w-3 mr-1" style={{ color: 'white' }} />
             Reprendre
           </Button>
           
