@@ -53,21 +53,18 @@ export function WorkoutSelection({ onSelectWorkout, hasWorkoutInProgress }: Work
         </div>
       )}
 
-      {/* Workout Cards */}
-      <div className="space-y-3 mb-4">
-        {workouts.map((workout) => {
-          const colors = getColorClasses(workout.color);
-          const exerciseNames = workout.exercises.slice(0, 3).map(ex => ex.name.split(' ')[0]);
-          
-          return (
-            <div
-              key={workout.id}
-              onClick={() => !hasWorkoutInProgress && onSelectWorkout(workout.id)}
-              className={`bg-white rounded-xl p-4 shadow-sm border border-gray-100 transition-all ${
-                hasWorkoutInProgress 
-                  ? 'opacity-50 cursor-not-allowed' 
-                  : 'hover:shadow-md cursor-pointer'
-              }`}
+      {/* Workout Cards - Only show if no workout in progress */}
+      {!hasWorkoutInProgress && (
+        <div className="space-y-3 mb-4">
+          {workouts.map((workout) => {
+            const colors = getColorClasses(workout.color);
+            const exerciseNames = workout.exercises.slice(0, 3).map(ex => ex.name.split(' ')[0]);
+            
+            return (
+              <div
+                key={workout.id}
+                onClick={() => onSelectWorkout(workout.id)}
+                className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 transition-all hover:shadow-md cursor-pointer"
             >
               <div className="flex items-start justify-between mb-3">
                 <div className="flex-1">
@@ -106,7 +103,8 @@ export function WorkoutSelection({ onSelectWorkout, hasWorkoutInProgress }: Work
             </div>
           );
         })}
-      </div>
+        </div>
+      )}
 
     </div>
   );
