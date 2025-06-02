@@ -120,3 +120,16 @@
 .home-content::-webkit-scrollbar {
   display: none;
 }
+
+/* Switch component styling */
+[data-state="checked"] {
+  background-color: hsl(24 74% 58%) !important; /* orange-500 */
+}
+
+[data-state="unchecked"] {
+  background-color: hsl(210 11% 90%) !important; /* gray-200 */
+}
+
+.switch-thumb {
+  background-color: white !important;
+}
