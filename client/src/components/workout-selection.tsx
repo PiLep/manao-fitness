@@ -1,5 +1,5 @@
 import { workouts } from '@/lib/workouts';
-import { Clock, RotateCcw, Play } from 'lucide-react';
+import { Clock, RotateCcw, Play, AlertCircle, TrendingUp, Calendar, Target } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 
 interface WorkoutSelectionProps {
@@ -41,6 +41,18 @@ export function WorkoutSelection({ onSelectWorkout, hasWorkoutInProgress }: Work
         <p className="text-gray-600">Choisis ta séance d'aujourd'hui</p>
       </div>
 
+      {/* Warning when workout in progress */}
+      {hasWorkoutInProgress && (
+        <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-4">
+          <div className="flex items-center space-x-2">
+            <AlertCircle className="w-5 h-5 text-amber-600" />
+            <p className="text-sm text-amber-800">
+              Vous avez déjà un entraînement en cours. Terminez-le ou supprimez-le avant d'en commencer un nouveau.
+            </p>
+          </div>
+        </div>
+      )}
+
       {/* Workout Cards */}
       <div className="space-y-4 mb-6">
         {workouts.map((workout) => {
@@ -50,8 +62,12 @@ export function WorkoutSelection({ onSelectWorkout, hasWorkoutInProgress }: Work
           return (
             <div
               key={workout.id}
-              onClick={() => onSelectWorkout(workout.id)}
-              className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all cursor-pointer"
+              onClick={() => !hasWorkoutInProgress && onSelectWorkout(workout.id)}
+              className={`bg-white rounded-2xl p-6 shadow-sm border border-gray-100 transition-all ${
+                hasWorkoutInProgress 
+                  ? 'opacity-50 cursor-not-allowed' 
+                  : 'hover:shadow-md cursor-pointer'
+              }`}
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="flex-1">
