@@ -120,26 +120,3 @@
 .home-content::-webkit-scrollbar {
   display: none;
 }
-
-/* Switch component styling */
-[role="switch"] {
-  height: 24px !important;
-  width: 44px !important;
-  border-radius: 12px !important;
-}
-
-[role="switch"][data-state="checked"] {
-  background-color: hsl(24 74% 58%) !important; /* orange-500 */
-}
-
-[role="switch"][data-state="unchecked"] {
-  background-color: hsl(210 11% 90%) !important; /* gray-200 */
-}
-
-[role="switch"] [data-state="checked"] {
-  transform: translateX(20px) !important;
-}
-
-[role="switch"] [data-state="unchecked"] {
-  transform: translateX(0px) !important;
-}
