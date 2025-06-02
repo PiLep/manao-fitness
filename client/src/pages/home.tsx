@@ -93,22 +93,24 @@ export default function Home() {
             </div>
           )}
 
-          {/* Content with proper spacing */}
-          <div 
-            className="max-w-md mx-auto overflow-y-auto home-content" 
-            style={{ 
-              paddingTop: workoutProgress ? '220px' : '90px', 
-              paddingBottom: '100px',
-              height: '100vh',
-              scrollbarWidth: 'none',
-              msOverflowStyle: 'none'
-            }}
-          >
-            <WorkoutSelection 
-              onSelectWorkout={handleSelectWorkout}
-              hasWorkoutInProgress={!!workoutProgress}
-            />
-          </div>
+          {/* Content with proper spacing - Only show if no workout in progress */}
+          {!workoutProgress && (
+            <div 
+              className="max-w-md mx-auto overflow-y-auto home-content" 
+              style={{ 
+                paddingTop: '90px', 
+                paddingBottom: '100px',
+                height: '100vh',
+                scrollbarWidth: 'none',
+                msOverflowStyle: 'none'
+              }}
+            >
+              <WorkoutSelection 
+                onSelectWorkout={handleSelectWorkout}
+                hasWorkoutInProgress={!!workoutProgress}
+              />
+            </div>
+          )}
 
           {/* Fixed Stats Section at Bottom */}
           <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-10" style={{ maxWidth: '448px', margin: '0 auto' }}>
