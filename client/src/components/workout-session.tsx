@@ -276,12 +276,21 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
       {/* Action Buttons */}
       <div className="bg-white border-t border-gray-200 px-4 py-6">
         <div className="space-y-3">
-          {sessionState === 'ready' && (
+          {sessionState === 'ready' && currentExercise.duration > 0 && (
             <button 
               onClick={handleStartExercise}
               className="w-full bg-primary text-white rounded-xl py-4 font-semibold text-lg hover:bg-primary/90 transition-colors"
             >
-              {currentExercise.duration > 0 ? 'Commencer le timer' : 'Je suis prêt(e) !'}
+              Commencer le timer
+            </button>
+          )}
+
+          {sessionState === 'ready' && currentExercise.duration === 0 && (
+            <button 
+              onClick={handleStartExercise}
+              className="w-full bg-primary text-white rounded-xl py-4 font-semibold text-lg hover:bg-primary/90 transition-colors"
+            >
+              Je suis prêt(e) !
             </button>
           )}
           
