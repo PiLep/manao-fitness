@@ -115,3 +115,8 @@
 .timer-circle {
   transition: stroke-dashoffset 1s linear;
 }
+
+/* Hide scrollbar for home page content */
+.home-content::-webkit-scrollbar {
+  display: none;
+}

@@ -81,7 +81,16 @@ export default function Home() {
       {/* Scrollable Main Content */}
       {appState === 'selection' && (
         <>
-          <div className="max-w-md mx-auto" style={{ paddingTop: '90px', paddingBottom: '100px' }}>
+          <div 
+            className="max-w-md mx-auto overflow-y-auto home-content" 
+            style={{ 
+              paddingTop: '90px', 
+              paddingBottom: '100px',
+              height: '100vh',
+              scrollbarWidth: 'none',
+              msOverflowStyle: 'none'
+            }}
+          >
             {/* Show workout in progress if exists */}
             {workoutProgress && (
               <WorkoutInProgress 
