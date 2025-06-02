@@ -2,12 +2,31 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertWorkoutSessionSchema } from "@shared/schema";
+import { setupAuth, isAuthenticated } from "./replitAuth";
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Workout session routes
-  app.post("/api/workout-sessions", async (req, res) => {
+  // Auth middleware
+  await setupAuth(app);
+
+  // Auth routes
+  app.get('/api/auth/user', isAuthenticated, async (req: any, res) => {
     try {
-      const sessionData = insertWorkoutSessionSchema.parse(req.body);
+      const userId = req.user.claims.sub;
+      const user = await storage.getUser(userId);
+      res.json(user);
+    } catch (error) {
+      console.error("Error fetching user:", error);
+      res.status(500).json({ message: "Failed to fetch user" });
+    }
+  });
+  // Protected workout session routes
+  app.post("/api/workout-sessions", isAuthenticated, async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      const sessionData = insertWorkoutSessionSchema.parse({
+        ...req.body,
+        userId
+      });
       const session = await storage.createWorkoutSession(sessionData);
       res.json(session);
     } catch (error) {
@@ -16,9 +35,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/workout-sessions", async (req, res) => {
+  app.get("/api/workout-sessions", isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.query.userId ? Number(req.query.userId) : undefined;
+      const userId = req.user.claims.sub;
       const sessions = await storage.getUserWorkoutSessions(userId);
       res.json(sessions);
     } catch (error) {
@@ -27,9 +46,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/workout-stats", async (req, res) => {
+  app.get("/api/workout-stats", isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.query.userId ? Number(req.query.userId) : undefined;
+      const userId = req.user.claims.sub;
       const stats = await storage.getWorkoutStats(userId);
       res.json(stats);
     } catch (error) {
@@ -38,10 +57,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // User preferences routes
-  app.get("/api/user-preferences", async (req, res) => {
+  // Protected user preferences routes
+  app.get("/api/user-preferences", isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.query.userId ? Number(req.query.userId) : undefined;
+      const userId = req.user.claims.sub;
       const preferences = await storage.getUserPreferences(userId);
       res.json(preferences || { soundEnabled: true, preferredWorkouts: [] });
     } catch (error) {
@@ -50,9 +69,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/user-preferences", async (req, res) => {
+  app.post("/api/user-preferences", isAuthenticated, async (req: any, res) => {
     try {
-      const preferences = await storage.createOrUpdateUserPreferences(req.body);
+      const userId = req.user.claims.sub;
+      const preferences = await storage.createOrUpdateUserPreferences({
+        ...req.body,
+        userId
+      });
       res.json(preferences);
     } catch (error) {
       console.error("Error saving user preferences:", error);
