@@ -98,10 +98,10 @@ export function WorkoutInProgress({ progress, onResumeWorkout }: WorkoutInProgre
         <div className="flex gap-2">
           <Button 
             onClick={() => onResumeWorkout(progress.workoutId)}
-            className="flex-1 bg-orange-600 hover:bg-orange-700 text-white text-sm py-2"
+            className="flex-1 bg-orange-600 hover:bg-orange-700 text-white text-sm py-2 border-0"
             size="sm"
           >
-            <Play className="h-3 w-3 mr-1" />
+            <Play className="h-3 w-3 mr-1 text-white" />
             Reprendre
           </Button>
           
