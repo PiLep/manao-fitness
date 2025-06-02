@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { workouts, type Workout, type Exercise } from '@/lib/workouts';
 import { applyDifficultyToWorkout, type DifficultyLevel } from '@/lib/difficultySystem';
 import { useTimer } from '@/hooks/use-timer';
+import { useWakeLock } from '@/hooks/use-wake-lock';
 import { TimerDisplay } from './timer-display';
 import { ArrowLeft } from 'lucide-react';
 import { apiRequest } from '@/lib/queryClient';
@@ -65,6 +66,10 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
   const timer = useTimer(getTimerDuration(), () => {
     handleTimerComplete();
   });
+
+  // Maintient l'écran allumé pendant l'entraînement
+  const isWorkoutActive = sessionState !== 'ready';
+  useWakeLock(isWorkoutActive);
 
   const handleTimerComplete = () => {
     switch (sessionState) {
