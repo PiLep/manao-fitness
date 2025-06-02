@@ -1,5 +1,6 @@
 import { workouts } from '@/lib/workouts';
 import { Clock, RotateCcw, Play } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
 
 interface WorkoutSelectionProps {
   onSelectWorkout: (workoutId: string) => void;
@@ -91,20 +92,57 @@ export function WorkoutSelection({ onSelectWorkout }: WorkoutSelectionProps) {
       </div>
 
       {/* Quick Stats */}
+      <WorkoutStats />
+    </div>
+  );
+}
+
+function WorkoutStats() {
+  const { data: stats, isLoading } = useQuery({
+    queryKey: ['/api/workout-stats'],
+  });
+
+  const formatTime = (seconds: number) => {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    return hours > 0 ? `${hours}h ${minutes}m` : `${minutes}m`;
+  };
+
+  if (isLoading) {
+    return (
       <div className="bg-white rounded-2xl p-4 border border-gray-100">
         <div className="grid grid-cols-3 gap-4 text-center">
           <div>
-            <div className="text-2xl font-bold text-primary">12</div>
+            <div className="text-2xl font-bold text-gray-300">--</div>
             <div className="text-xs text-gray-500">Séances</div>
           </div>
           <div>
-            <div className="text-2xl font-bold text-secondary">3h 45m</div>
+            <div className="text-2xl font-bold text-gray-300">--</div>
             <div className="text-xs text-gray-500">Temps total</div>
           </div>
           <div>
-            <div className="text-2xl font-bold text-accent">5</div>
+            <div className="text-2xl font-bold text-gray-300">--</div>
             <div className="text-xs text-gray-500">Cette semaine</div>
           </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-white rounded-2xl p-4 border border-gray-100">
+      <div className="grid grid-cols-3 gap-4 text-center">
+        <div>
+          <div className="text-2xl font-bold text-primary">{stats?.totalSessions || 0}</div>
+          <div className="text-xs text-gray-500">Séances</div>
+        </div>
+        <div>
+          <div className="text-2xl font-bold text-secondary">{stats?.totalTime ? formatTime(stats.totalTime) : '0m'}</div>
+          <div className="text-xs text-gray-500">Temps total</div>
+        </div>
+        <div>
+          <div className="text-2xl font-bold text-accent">{stats?.thisWeek || 0}</div>
+          <div className="text-xs text-gray-500">Cette semaine</div>
         </div>
       </div>
     </div>

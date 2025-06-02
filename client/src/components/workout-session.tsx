@@ -3,6 +3,7 @@ import { workouts, type Workout, type Exercise } from '@/lib/workouts';
 import { useTimer } from '@/hooks/use-timer';
 import { TimerDisplay } from './timer-display';
 import { ArrowLeft } from 'lucide-react';
+import { apiRequest } from '@/lib/queryClient';
 
 interface WorkoutSessionProps {
   workoutId: string;
@@ -90,7 +91,7 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
     }
   }, [sessionState, currentExercise.duration]);
 
-  const handleWorkoutComplete = () => {
+  const handleWorkoutComplete = async () => {
     const totalTime = Math.floor((Date.now() - startTime) / 1000);
     const stats: WorkoutStats = {
       totalTime,
@@ -98,6 +99,31 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
       roundsCompleted: currentRound,
       caloriesEstimate: Math.floor(totalTime / 60 * 8) // Rough estimate: 8 cal/min
     };
+
+    // Save workout session to database
+    try {
+      const response = await fetch("/api/workout-sessions", {
+        method: "POST",
+        body: JSON.stringify({
+          workoutId: workout.id,
+          workoutTitle: workout.title,
+          totalTime: stats.totalTime,
+          exercisesCompleted: stats.exercisesCompleted,
+          roundsCompleted: stats.roundsCompleted,
+          caloriesEstimate: stats.caloriesEstimate,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to save workout session');
+      }
+    } catch (error) {
+      console.error("Failed to save workout session:", error);
+    }
+
     onComplete(stats);
   };
 
