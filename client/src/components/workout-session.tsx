@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import { workouts, type Workout, type Exercise } from '@/lib/workouts';
+import { applyDifficultyToWorkout, type DifficultyLevel } from '@/lib/difficultySystem';
 import { useTimer } from '@/hooks/use-timer';
 import { TimerDisplay } from './timer-display';
 import { ArrowLeft } from 'lucide-react';
 import { apiRequest } from '@/lib/queryClient';
+import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
 
 interface WorkoutSessionProps {
   workoutId: string;

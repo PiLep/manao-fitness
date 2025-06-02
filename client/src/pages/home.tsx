@@ -2,11 +2,12 @@ import { useState } from 'react';
 import { WorkoutSelection } from '@/components/workout-selection';
 import { WorkoutSession, type WorkoutStats } from '@/components/workout-session';
 import { WorkoutComplete } from '@/components/workout-complete';
+import Settings from '@/pages/settings';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
-import { Activity, LogOut, User } from 'lucide-react';
+import { Activity, LogOut, User, Settings as SettingsIcon } from 'lucide-react';
 
-type AppState = 'selection' | 'session' | 'complete';
+type AppState = 'selection' | 'session' | 'complete' | 'settings';
 
 export default function Home() {
   const { user } = useAuth();
@@ -45,12 +46,14 @@ export default function Home() {
             </div>
           </div>
           <div className="flex items-center space-x-2">
-            {user && (
-              <div className="flex items-center space-x-2 text-sm text-gray-600">
-                <User className="w-4 h-4" />
-                <span>{user.firstName || user.email}</span>
-              </div>
-            )}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setAppState('settings')}
+              className="text-gray-600 hover:text-gray-800"
+            >
+              <SettingsIcon className="w-4 h-4" />
+            </Button>
             <Button
               variant="ghost"
               size="sm"
@@ -81,6 +84,10 @@ export default function Home() {
           stats={workoutStats}
           onNewWorkout={handleBackToSelection}
         />
+      )}
+
+      {appState === 'settings' && (
+        <Settings onBack={handleBackToSelection} />
       )}
     </div>
   );

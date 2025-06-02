@@ -41,6 +41,7 @@ export const userPreferences = pgTable("user_preferences", {
   id: serial("id").primaryKey(),
   userId: varchar("user_id"),
   soundEnabled: boolean("sound_enabled").default(true).notNull(),
+  difficultyLevel: varchar("difficulty_level").default('beginner').notNull(),
   preferredWorkouts: text("preferred_workouts").array(),
 });
 
