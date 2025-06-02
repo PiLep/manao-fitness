@@ -412,13 +412,13 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
             <>
               <button 
                 onClick={handleStartExercise}
-                className="flex-1 bg-primary text-white rounded-lg py-3 font-semibold hover:bg-primary/90 transition-colors"
+                className="flex-1 bg-gradient-to-r from-teal-500 to-cyan-600 text-white rounded-lg py-3 font-semibold hover:from-teal-600 hover:to-cyan-700 transition-colors"
               >
                 Prêt !
               </button>
               <button 
                 onClick={handleWorkoutComplete}
-                className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors"
+                className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center text-teal-600 hover:bg-teal-200 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -429,19 +429,19 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
             <>
               <button 
                 onClick={() => timer.pause()}
-                className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors"
+                className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center text-teal-600 hover:bg-teal-200 transition-colors"
               >
                 {timer.isPaused ? <Play className="w-5 h-5" /> : <Pause className="w-5 h-5" />}
               </button>
               <button 
                 onClick={() => timer.skip()}
-                className="flex-1 bg-accent text-white rounded-lg py-3 font-semibold hover:bg-accent/90 transition-colors"
+                className="flex-1 bg-gradient-to-r from-pink-500 to-orange-500 text-white rounded-lg py-3 font-semibold hover:from-pink-600 hover:to-orange-600 transition-colors"
               >
                 Passer le repos
               </button>
               <button 
                 onClick={handleWorkoutComplete}
-                className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors"
+                className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center text-teal-600 hover:bg-teal-200 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -452,19 +452,19 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
             <>
               <button 
                 onClick={() => timer.pause()}
-                className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors"
+                className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center text-teal-600 hover:bg-teal-200 transition-colors"
               >
                 {timer.isPaused ? <Play className="w-5 h-5" /> : <Pause className="w-5 h-5" />}
               </button>
               <button 
                 onClick={() => timer.skip()}
-                className="flex-1 bg-accent text-white rounded-lg py-3 font-semibold hover:bg-accent/90 transition-colors"
+                className="flex-1 bg-gradient-to-r from-pink-500 to-orange-500 text-white rounded-lg py-3 font-semibold hover:from-pink-600 hover:to-orange-600 transition-colors"
               >
                 Passer
               </button>
               <button 
                 onClick={handleWorkoutComplete}
-                className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors"
+                className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center text-teal-600 hover:bg-teal-200 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -475,13 +475,13 @@ export function WorkoutSession({ workoutId, onComplete, onBack }: WorkoutSession
             <>
               <button 
                 onClick={() => timer.skip()}
-                className="flex-1 bg-primary text-white rounded-lg py-3 font-semibold hover:bg-primary/90 transition-colors"
+                className="flex-1 bg-gradient-to-r from-teal-500 to-cyan-600 text-white rounded-lg py-3 font-semibold hover:from-teal-600 hover:to-cyan-700 transition-colors"
               >
                 Terminé
               </button>
               <button 
                 onClick={handleWorkoutComplete}
-                className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors"
+                className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center text-teal-600 hover:bg-teal-200 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
