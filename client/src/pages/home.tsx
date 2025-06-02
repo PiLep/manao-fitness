@@ -34,7 +34,7 @@ export default function Home() {
         <div className="max-w-md mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 bg-gradient-to-br from-primary to-orange-400 rounded-xl flex items-center justify-center">
-              <i className="fas fa-dumbbell text-white text-lg" />
+              <Dumbbell className="w-5 h-5 text-white" />
             </div>
             <div>
               <h1 className="text-xl font-bold text-gray-900">FitTimer</h1>
@@ -42,7 +42,7 @@ export default function Home() {
             </div>
           </div>
           <button className="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors">
-            <i className="fas fa-cog" />
+            <Settings className="w-5 h-5" />
           </button>
         </div>
       </header>
