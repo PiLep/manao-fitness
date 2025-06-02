@@ -1,48 +1,49 @@
-import { users, workoutSessions, userPreferences, type User, type InsertUser, type WorkoutSession, type InsertWorkoutSession, type UserPreferences, type InsertUserPreferences } from "@shared/schema";
+import { users, workoutSessions, userPreferences, type User, type UpsertUser, type WorkoutSession, type InsertWorkoutSession, type UserPreferences, type InsertUserPreferences } from "@shared/schema";
 import { db } from "./db";
 import { eq, desc } from "drizzle-orm";
 
-// modify the interface with any CRUD methods
-// you might need
-
 export interface IStorage {
-  getUser(id: number): Promise<User | undefined>;
-  getUserByUsername(username: string): Promise<User | undefined>;
-  createUser(user: InsertUser): Promise<User>;
+  // User operations for Replit Auth
+  getUser(id: string): Promise<User | undefined>;
+  upsertUser(user: UpsertUser): Promise<User>;
   
   // Workout session methods
   createWorkoutSession(session: InsertWorkoutSession): Promise<WorkoutSession>;
-  getUserWorkoutSessions(userId?: number): Promise<WorkoutSession[]>;
-  getWorkoutStats(userId?: number): Promise<{
+  getUserWorkoutSessions(userId?: string): Promise<WorkoutSession[]>;
+  getWorkoutStats(userId?: string): Promise<{
     totalSessions: number;
     totalTime: number;
     thisWeek: number;
   }>;
   
   // User preferences methods
-  getUserPreferences(userId?: number): Promise<UserPreferences | undefined>;
+  getUserPreferences(userId?: string): Promise<UserPreferences | undefined>;
   createOrUpdateUserPreferences(preferences: InsertUserPreferences): Promise<UserPreferences>;
 }
 
 export class DatabaseStorage implements IStorage {
-  async getUser(id: number): Promise<User | undefined> {
+  // User operations for Replit Auth
+  async getUser(id: string): Promise<User | undefined> {
     const [user] = await db.select().from(users).where(eq(users.id, id));
-    return user || undefined;
+    return user;
   }
 
-  async getUserByUsername(username: string): Promise<User | undefined> {
-    const [user] = await db.select().from(users).where(eq(users.username, username));
-    return user || undefined;
-  }
-
-  async createUser(insertUser: InsertUser): Promise<User> {
+  async upsertUser(userData: UpsertUser): Promise<User> {
     const [user] = await db
       .insert(users)
-      .values(insertUser)
+      .values(userData)
+      .onConflictDoUpdate({
+        target: users.id,
+        set: {
+          ...userData,
+          updatedAt: new Date(),
+        },
+      })
       .returning();
     return user;
   }
 
+  // Workout session methods
   async createWorkoutSession(session: InsertWorkoutSession): Promise<WorkoutSession> {
     const [workoutSession] = await db
       .insert(workoutSessions)
@@ -51,72 +52,68 @@ export class DatabaseStorage implements IStorage {
     return workoutSession;
   }
 
-  async getUserWorkoutSessions(userId?: number): Promise<WorkoutSession[]> {
-    if (userId) {
-      return await db.select().from(workoutSessions)
-        .where(eq(workoutSessions.userId, userId))
-        .orderBy(desc(workoutSessions.completedAt));
-    }
-    return await db.select().from(workoutSessions)
+  async getUserWorkoutSessions(userId?: string): Promise<WorkoutSession[]> {
+    if (!userId) return [];
+    
+    return await db
+      .select()
+      .from(workoutSessions)
+      .where(eq(workoutSessions.userId, userId))
       .orderBy(desc(workoutSessions.completedAt));
   }
 
-  async getWorkoutStats(userId?: number): Promise<{
+  async getWorkoutStats(userId?: string): Promise<{
     totalSessions: number;
     totalTime: number;
     thisWeek: number;
   }> {
-    const oneWeekAgo = new Date();
-    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-
-    let allSessions: WorkoutSession[];
-    if (userId) {
-      allSessions = await db.select().from(workoutSessions)
-        .where(eq(workoutSessions.userId, userId));
-    } else {
-      allSessions = await db.select().from(workoutSessions);
+    if (!userId) {
+      return {
+        totalSessions: 0,
+        totalTime: 0,
+        thisWeek: 0,
+      };
     }
 
-    const thisWeekSessions = allSessions.filter(
-      session => new Date(session.completedAt) >= oneWeekAgo
-    );
+    const sessions = await this.getUserWorkoutSessions(userId);
+    const totalSessions = sessions.length;
+    const totalTime = sessions.reduce((acc, session) => acc + session.totalTime, 0);
+    
+    // Calculate sessions from this week
+    const oneWeekAgo = new Date();
+    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+    const thisWeek = sessions.filter(session => 
+      session.completedAt && session.completedAt > oneWeekAgo
+    ).length;
 
     return {
-      totalSessions: allSessions.length,
-      totalTime: allSessions.reduce((sum, session) => sum + session.totalTime, 0),
-      thisWeek: thisWeekSessions.length,
+      totalSessions,
+      totalTime,
+      thisWeek,
     };
   }
 
-  async getUserPreferences(userId?: number): Promise<UserPreferences | undefined> {
+  // User preferences methods
+  async getUserPreferences(userId?: string): Promise<UserPreferences | undefined> {
     if (!userId) return undefined;
     
-    const [preferences] = await db.select().from(userPreferences)
+    const [preferences] = await db
+      .select()
+      .from(userPreferences)
       .where(eq(userPreferences.userId, userId));
-    return preferences || undefined;
+    return preferences;
   }
 
   async createOrUpdateUserPreferences(preferences: InsertUserPreferences): Promise<UserPreferences> {
-    if (!preferences.userId) {
-      throw new Error("User ID is required for preferences");
-    }
-
-    const existing = await this.getUserPreferences(preferences.userId);
-    
-    if (existing) {
-      const [updated] = await db
-        .update(userPreferences)
-        .set(preferences)
-        .where(eq(userPreferences.userId, preferences.userId))
-        .returning();
-      return updated;
-    } else {
-      const [created] = await db
-        .insert(userPreferences)
-        .values(preferences)
-        .returning();
-      return created;
-    }
+    const [userPrefs] = await db
+      .insert(userPreferences)
+      .values(preferences)
+      .onConflictDoUpdate({
+        target: userPreferences.userId,
+        set: preferences,
+      })
+      .returning();
+    return userPrefs;
   }
 }
 
