@@ -4,9 +4,10 @@ import { useQuery } from '@tanstack/react-query';
 
 interface WorkoutSelectionProps {
   onSelectWorkout: (workoutId: string) => void;
+  hasWorkoutInProgress?: boolean;
 }
 
-export function WorkoutSelection({ onSelectWorkout }: WorkoutSelectionProps) {
+export function WorkoutSelection({ onSelectWorkout, hasWorkoutInProgress }: WorkoutSelectionProps) {
   const getColorClasses = (color: string) => {
     switch (color) {
       case 'orange':

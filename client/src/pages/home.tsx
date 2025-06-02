@@ -80,7 +80,20 @@ export default function Home() {
 
       {/* Main Content */}
       {appState === 'selection' && (
-        <WorkoutSelection onSelectWorkout={handleSelectWorkout} />
+        <div className="space-y-6">
+          {/* Show workout in progress if exists */}
+          {workoutProgress && (
+            <WorkoutInProgress 
+              progress={workoutProgress}
+              onResumeWorkout={handleResumeWorkout}
+            />
+          )}
+          
+          <WorkoutSelection 
+            onSelectWorkout={handleSelectWorkout}
+            hasWorkoutInProgress={!!workoutProgress}
+          />
+        </div>
       )}
 
       {appState === 'session' && selectedWorkoutId && (
