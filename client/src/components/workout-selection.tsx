@@ -1,6 +1,5 @@
-import React from 'react';
 import { workouts } from '@/lib/workouts';
-import { Clock, RotateCcw, Play, AlertCircle } from 'lucide-react';
+import { Clock, RotateCcw, Play, AlertCircle, TrendingUp, Calendar, Target } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 
 interface WorkoutSelectionProps {
@@ -35,7 +34,7 @@ export function WorkoutSelection({ onSelectWorkout, hasWorkoutInProgress }: Work
   };
 
   return (
-    <div className="px-4 py-3">
+    <div className="max-w-md mx-auto px-4 py-3">
       {/* Welcome Section */}
       <div className="text-center mb-4">
         <h2 className="text-xl font-bold text-gray-900 mb-1">Prêt à t'entraîner ?</h2>
@@ -66,46 +65,47 @@ export function WorkoutSelection({ onSelectWorkout, hasWorkoutInProgress }: Work
                 key={workout.id}
                 onClick={() => onSelectWorkout(workout.id)}
                 className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 transition-all hover:shadow-md cursor-pointer"
-              >
-                <div className="flex items-start justify-between mb-3">
-                  <div className="flex-1">
-                    <div className="flex items-center space-x-2 mb-1">
-                      <span className="text-xl">{workout.emoji}</span>
-                      <h3 className="text-base font-bold text-gray-900">{workout.title}</h3>
-                    </div>
-                    <p className="text-xs text-gray-600 mb-2">{workout.description}</p>
-                    <div className="flex items-center space-x-3 text-xs text-gray-500">
-                      <span className="flex items-center space-x-1">
-                        <Clock className="w-3 h-3" />
-                        <span>{workout.duration}</span>
-                      </span>
-                      <span className="flex items-center space-x-1">
-                        <RotateCcw className="w-3 h-3" />
-                        <span>{workout.rounds} tours</span>
-                      </span>
-                    </div>
+            >
+              <div className="flex items-start justify-between mb-3">
+                <div className="flex-1">
+                  <div className="flex items-center space-x-2 mb-1">
+                    <span className="text-xl">{workout.emoji}</span>
+                    <h3 className="text-base font-bold text-gray-900">{workout.title}</h3>
                   </div>
-                  <div className={`rounded-lg p-1.5 ${colors.icon}`}>
-                    <Play className="w-3 h-3" />
+                  <p className="text-xs text-gray-600 mb-2">{workout.description}</p>
+                  <div className="flex items-center space-x-3 text-xs text-gray-500">
+                    <span className="flex items-center space-x-1">
+                      <Clock className="w-3 h-3" />
+                      <span>{workout.duration}</span>
+                    </span>
+                    <span className="flex items-center space-x-1">
+                      <RotateCcw className="w-3 h-3" />
+                      <span>{workout.rounds} tours</span>
+                    </span>
                   </div>
                 </div>
-                <div className="flex flex-wrap gap-1">
-                  {exerciseNames.map((name, index) => (
-                    <span key={index} className={`px-1.5 py-0.5 rounded text-xs font-medium ${colors.badge}`}>
-                      {name}
-                    </span>
-                  ))}
-                  {workout.exercises.length > 3 && (
-                    <span className={`px-1.5 py-0.5 rounded text-xs font-medium ${colors.badge}`}>
-                      +{workout.exercises.length - 3}
-                    </span>
-                  )}
+                <div className={`rounded-lg p-1.5 ${colors.icon}`}>
+                  <Play className="w-3 h-3" />
                 </div>
               </div>
-            );
-          })}
+              <div className="flex flex-wrap gap-1">
+                {exerciseNames.map((name, index) => (
+                  <span key={index} className={`px-1.5 py-0.5 rounded text-xs font-medium ${colors.badge}`}>
+                    {name}
+                  </span>
+                ))}
+                {workout.exercises.length > 3 && (
+                  <span className={`px-1.5 py-0.5 rounded text-xs font-medium ${colors.badge}`}>
+                    +{workout.exercises.length - 3}
+                  </span>
+                )}
+              </div>
+            </div>
+          );
+        })}
         </div>
       )}
+
     </div>
   );
 }
